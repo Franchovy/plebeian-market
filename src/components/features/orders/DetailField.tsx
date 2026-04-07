@@ -17,4 +17,4 @@ export function DetailField({
 			<p className={cn('font-medium text-right', valueClassName)}>{value}</p>
 		</div>
 	)
-} 
+}

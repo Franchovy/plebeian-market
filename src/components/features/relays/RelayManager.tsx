@@ -248,35 +248,16 @@ export function RelayManager() {
 							<Cloud className="w-5 h-5" />
 							Nostr Sync
 						</CardTitle>
-						<CardDescription>
-							Save your relay list to Nostr so it persists across sessions and devices
-						</CardDescription>
+						<CardDescription>Save your relay list to Nostr so it persists across sessions and devices</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">
 						<div className="flex flex-col sm:flex-row gap-2">
-							<Button
-								variant="outline"
-								onClick={handleLoadFromNostr}
-								disabled={isLoadingNostrRelays || isSaving}
-								className="flex-1"
-							>
-								{isLoadingNostrRelays ? (
-									<Loader2 className="w-4 h-4 mr-2 animate-spin" />
-								) : (
-									<Cloud className="w-4 h-4 mr-2" />
-								)}
+							<Button variant="outline" onClick={handleLoadFromNostr} disabled={isLoadingNostrRelays || isSaving} className="flex-1">
+								{isLoadingNostrRelays ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Cloud className="w-4 h-4 mr-2" />}
 								Load from Nostr
 							</Button>
-							<Button
-								onClick={handleSaveToNostr}
-								disabled={isSaving || relays.explicit.length === 0}
-								className="flex-1"
-							>
-								{isSaving ? (
-									<Loader2 className="w-4 h-4 mr-2 animate-spin" />
-								) : (
-									<CloudUpload className="w-4 h-4 mr-2" />
-								)}
+							<Button onClick={handleSaveToNostr} disabled={isSaving || relays.explicit.length === 0} className="flex-1">
+								{isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CloudUpload className="w-4 h-4 mr-2" />}
 								Save to Nostr
 							</Button>
 						</div>
@@ -337,12 +318,10 @@ export function RelayManager() {
 
 					{totalRelays === 0 && (
 						<div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-							<p className="text-sm text-yellow-800 mb-2">
-								You're not connected to any relays. Connect to default relays to get started.
-							</p>
-							<Button 
-								variant="outline" 
-								size="sm" 
+							<p className="text-sm text-yellow-800 mb-2">You're not connected to any relays. Connect to default relays to get started.</p>
+							<Button
+								variant="outline"
+								size="sm"
 								onClick={handleConnectToDefaults}
 								className="text-yellow-800 border-yellow-300 hover:bg-yellow-100 w-full sm:w-auto"
 							>
@@ -358,23 +337,14 @@ export function RelayManager() {
 			{relays.explicit.length > 0 && (
 				<Card>
 					<CardHeader>
-						<CardTitle className="text-lg">
-							Explicit Relays ({relays.explicit.length})
-						</CardTitle>
-						<CardDescription>
-							Relays you've explicitly configured for publishing and reading events
-						</CardDescription>
+						<CardTitle className="text-lg">Explicit Relays ({relays.explicit.length})</CardTitle>
+						<CardDescription>Relays you've explicitly configured for publishing and reading events</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<ScrollArea className={relays.explicit.length > 5 ? 'h-80' : undefined}>
 							<div className="space-y-2">
 								{relays.explicit.map((relay) => (
-									<RelayCard
-										key={relay.url}
-										relay={relay}
-										onRemove={handleRemoveRelay}
-										type="explicit"
-									/>
+									<RelayCard key={relay.url} relay={relay} onRemove={handleRemoveRelay} type="explicit" />
 								))}
 							</div>
 						</ScrollArea>
@@ -386,12 +356,8 @@ export function RelayManager() {
 			{relays.outbox.length > 0 && (
 				<Card>
 					<CardHeader>
-						<CardTitle className="text-lg">
-							Outbox Relays ({relays.outbox.length})
-						</CardTitle>
-						<CardDescription>
-							Relays discovered through the outbox model for efficient data distribution
-						</CardDescription>
+						<CardTitle className="text-lg">Outbox Relays ({relays.outbox.length})</CardTitle>
+						<CardDescription>Relays discovered through the outbox model for efficient data distribution</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<ScrollArea className={relays.outbox.length > 5 ? 'h-80' : undefined}>
@@ -411,4 +377,4 @@ export function RelayManager() {
 			)}
 		</div>
 	)
-} 
+}
