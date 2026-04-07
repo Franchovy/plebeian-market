@@ -13,7 +13,7 @@ import { VANITY_PRICING } from '@/server/VanityManager'
 import { AlertCircle, CheckCircle2, Clock, ExternalLink, Copy, Zap, RefreshCw } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { LightningPaymentProcessor } from '@/components/features/lightning/LightningPaymentProcessor'
+import { LightningPaymentProcessor } from '@/components/shared/LightningPaymentProcessor'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { purchaseVanityForPubkey } from '@/lib/zapPurchase'
 

@@ -1,8 +1,4 @@
-import {
-	LightningPaymentProcessor,
-	type LightningPaymentData,
-	type PaymentResult,
-} from '@/components/features/lightning/LightningPaymentProcessor'
+import { LightningPaymentProcessor, type LightningPaymentData, type PaymentResult } from '@/components/shared/LightningPaymentProcessor'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'

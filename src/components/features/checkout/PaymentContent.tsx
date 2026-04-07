@@ -3,7 +3,7 @@ import {
 	type LightningPaymentData,
 	type LightningPaymentProcessorRef,
 	type PaymentResult,
-} from '@/components/features/lightning/LightningPaymentProcessor'
+} from '@/components/shared/LightningPaymentProcessor'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { WalletSelector } from '@/components/checkout/WalletSelector'
