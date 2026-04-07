@@ -1,4 +1,4 @@
-import { OrderCard } from '@/components/orders/OrderCard'
+import { OrderCard } from '@/components/features/orders/OrderCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -57,75 +57,75 @@ function DashboardInnerComponent() {
 		<div className="space-y-6">
 			{/* Welcome Section */}
 			<div>
-				<h2 className="text-2xl font-bold mb-2">Welcome back!</h2>
+				<h2 className="mb-2 font-bold text-2xl">Welcome back!</h2>
 				<p className="text-muted-foreground">Here's what's happening with your marketplace</p>
 			</div>
 
 			{/* Stats Grid */}
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			<div className="gap-4 grid md:grid-cols-2 lg:grid-cols-4">
 				<Card>
-					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Active Listings</CardTitle>
+					<CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+						<CardTitle className="font-medium text-sm">Active Listings</CardTitle>
 						<span className="text-2xl">📦</span>
 					</CardHeader>
 					<CardContent>
 						{isLoading ? (
-							<Skeleton className="h-8 w-20" />
+							<Skeleton className="w-20 h-8" />
 						) : (
 							<>
-								<div className="text-2xl font-bold">{activeListings}</div>
-								<p className="text-xs text-muted-foreground">{totalListings} total products</p>
+								<div className="font-bold text-2xl">{activeListings}</div>
+								<p className="text-muted-foreground text-xs">{totalListings} total products</p>
 							</>
 						)}
 					</CardContent>
 				</Card>
 
 				<Card>
-					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Sales</CardTitle>
+					<CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+						<CardTitle className="font-medium text-sm">Sales</CardTitle>
 						<span className="text-2xl">💰</span>
 					</CardHeader>
 					<CardContent>
 						{isLoading ? (
-							<Skeleton className="h-8 w-20" />
+							<Skeleton className="w-20 h-8" />
 						) : (
 							<>
-								<div className="text-2xl font-bold">{sellerOrders.length}</div>
-								<p className="text-xs text-muted-foreground">Orders received</p>
+								<div className="font-bold text-2xl">{sellerOrders.length}</div>
+								<p className="text-muted-foreground text-xs">Orders received</p>
 							</>
 						)}
 					</CardContent>
 				</Card>
 
 				<Card>
-					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Purchases</CardTitle>
+					<CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+						<CardTitle className="font-medium text-sm">Purchases</CardTitle>
 						<span className="text-2xl">🛍️</span>
 					</CardHeader>
 					<CardContent>
 						{isLoading ? (
-							<Skeleton className="h-8 w-20" />
+							<Skeleton className="w-20 h-8" />
 						) : (
 							<>
-								<div className="text-2xl font-bold">{buyerOrders.length}</div>
-								<p className="text-xs text-muted-foreground">Orders placed</p>
+								<div className="font-bold text-2xl">{buyerOrders.length}</div>
+								<p className="text-muted-foreground text-xs">Orders placed</p>
 							</>
 						)}
 					</CardContent>
 				</Card>
 
 				<Card>
-					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-						<CardTitle className="text-sm font-medium">Messages</CardTitle>
+					<CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+						<CardTitle className="font-medium text-sm">Messages</CardTitle>
 						<span className="text-2xl">✉️</span>
 					</CardHeader>
 					<CardContent>
 						{isLoading ? (
-							<Skeleton className="h-8 w-20" />
+							<Skeleton className="w-20 h-8" />
 						) : (
 							<>
-								<div className="text-2xl font-bold">{unreadMessages}</div>
-								<p className="text-xs text-muted-foreground">Conversations</p>
+								<div className="font-bold text-2xl">{unreadMessages}</div>
+								<p className="text-muted-foreground text-xs">Conversations</p>
 							</>
 						)}
 					</CardContent>
@@ -139,74 +139,74 @@ function DashboardInnerComponent() {
 					<CardDescription>Common tasks to get you started</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+					<div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
 						<Link to="/dashboard/products/products/new">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">➕</span>
 									<div className="text-left">
 										<div className="font-semibold">Create Product</div>
-										<div className="text-xs text-muted-foreground">List a new item for sale</div>
+										<div className="text-muted-foreground text-xs">List a new item for sale</div>
 									</div>
 								</div>
 							</Button>
 						</Link>
 
 						<Link to="/dashboard/sales/sales">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">💰</span>
 									<div className="text-left">
 										<div className="font-semibold">View Sales</div>
-										<div className="text-xs text-muted-foreground">Manage your orders</div>
+										<div className="text-muted-foreground text-xs">Manage your orders</div>
 									</div>
 								</div>
 							</Button>
 						</Link>
 
 						<Link to="/dashboard/sales/messages">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">✉️</span>
 									<div className="text-left">
 										<div className="font-semibold">Messages</div>
-										<div className="text-xs text-muted-foreground">Chat with buyers/sellers</div>
+										<div className="text-muted-foreground text-xs">Chat with buyers/sellers</div>
 									</div>
 								</div>
 							</Button>
 						</Link>
 
 						<Link to="/dashboard/products/collections">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">🗂️</span>
 									<div className="text-left">
 										<div className="font-semibold">Collections</div>
-										<div className="text-xs text-muted-foreground">Organize your products</div>
+										<div className="text-muted-foreground text-xs">Organize your products</div>
 									</div>
 								</div>
 							</Button>
 						</Link>
 
 						<Link to="/dashboard/account/receiving-payments">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">💸</span>
 									<div className="text-left">
 										<div className="font-semibold">Payment Settings</div>
-										<div className="text-xs text-muted-foreground">Configure how you get paid</div>
+										<div className="text-muted-foreground text-xs">Configure how you get paid</div>
 									</div>
 								</div>
 							</Button>
 						</Link>
 
 						<Link to="/dashboard/account/profile">
-							<Button variant="outline" className="w-full justify-start h-auto py-4">
+							<Button variant="outline" className="justify-start py-4 w-full h-auto">
 								<div className="flex items-start gap-3">
 									<span className="text-2xl">👤</span>
 									<div className="text-left">
 										<div className="font-semibold">Edit Profile</div>
-										<div className="text-xs text-muted-foreground">Update your store info</div>
+										<div className="text-muted-foreground text-xs">Update your store info</div>
 									</div>
 								</div>
 							</Button>
@@ -226,16 +226,16 @@ function DashboardInnerComponent() {
 						<div className="space-y-4">
 							{[...Array(3)].map((_, i) => (
 								<div key={i} className="flex items-center space-x-4">
-									<Skeleton className="h-12 w-12 rounded-full" />
-									<div className="space-y-2 flex-1">
-										<Skeleton className="h-4 w-full" />
-										<Skeleton className="h-4 w-3/4" />
+									<Skeleton className="rounded-full w-12 h-12" />
+									<div className="flex-1 space-y-2">
+										<Skeleton className="w-full h-4" />
+										<Skeleton className="w-3/4 h-4" />
 									</div>
 								</div>
 							))}
 						</div>
 					) : recentOrders.length === 0 ? (
-						<div className="text-center py-8">
+						<div className="py-8 text-center">
 							<p className="text-muted-foreground">No orders yet</p>
 						</div>
 					) : (
@@ -263,12 +263,12 @@ function DashboardInnerComponent() {
 					<CardContent>
 						<ol className="space-y-4">
 							<li className="flex items-start gap-3">
-								<span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex-shrink-0">
+								<span className="flex flex-shrink-0 justify-center items-center bg-primary rounded-full w-6 h-6 font-bold text-primary-foreground text-sm">
 									1
 								</span>
 								<div>
 									<div className="font-semibold">Set up your profile</div>
-									<p className="text-sm text-muted-foreground">Add your store name, description, and contact info</p>
+									<p className="text-muted-foreground text-sm">Add your store name, description, and contact info</p>
 									<Link to="/dashboard/account/profile">
 										<Button variant="link" className="p-0 h-auto">
 											Go to Profile →
@@ -277,12 +277,12 @@ function DashboardInnerComponent() {
 								</div>
 							</li>
 							<li className="flex items-start gap-3">
-								<span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex-shrink-0">
+								<span className="flex flex-shrink-0 justify-center items-center bg-primary rounded-full w-6 h-6 font-bold text-primary-foreground text-sm">
 									2
 								</span>
 								<div>
 									<div className="font-semibold">Configure payment methods</div>
-									<p className="text-sm text-muted-foreground">Set up how you'll receive payments from customers</p>
+									<p className="text-muted-foreground text-sm">Set up how you'll receive payments from customers</p>
 									<Link to="/dashboard/account/receiving-payments">
 										<Button variant="link" className="p-0 h-auto">
 											Set Up Payments →
@@ -291,12 +291,12 @@ function DashboardInnerComponent() {
 								</div>
 							</li>
 							<li className="flex items-start gap-3">
-								<span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex-shrink-0">
+								<span className="flex flex-shrink-0 justify-center items-center bg-primary rounded-full w-6 h-6 font-bold text-primary-foreground text-sm">
 									3
 								</span>
 								<div>
 									<div className="font-semibold">Set up shipping options</div>
-									<p className="text-sm text-muted-foreground">Define how you'll deliver products to customers</p>
+									<p className="text-muted-foreground text-sm">Define how you'll deliver products to customers</p>
 									<Link to="/dashboard/products/shipping-options">
 										<Button variant="link" className="p-0 h-auto">
 											Configure Shipping →
@@ -305,12 +305,12 @@ function DashboardInnerComponent() {
 								</div>
 							</li>
 							<li className="flex items-start gap-3">
-								<span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-sm font-bold flex-shrink-0">
+								<span className="flex flex-shrink-0 justify-center items-center bg-primary rounded-full w-6 h-6 font-bold text-primary-foreground text-sm">
 									4
 								</span>
 								<div>
 									<div className="font-semibold">Create your first product</div>
-									<p className="text-sm text-muted-foreground">List an item with photos, description, and pricing</p>
+									<p className="text-muted-foreground text-sm">List an item with photos, description, and pricing</p>
 									<Link to="/dashboard/products/products/new">
 										<Button variant="link" className="p-0 h-auto">
 											Create Product →

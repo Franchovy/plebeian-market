@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { OrderDetailComponent } from '@/components/orders/OrderDetailComponent'
+import { OrderDetailComponent } from '@/components/features/orders/OrderDetailComponent'
 import { useDashboardTitle } from '@/routes/_dashboard-layout'
 import { useOrderById } from '@/queries/orders'
 import { Card, CardContent } from '@/components/ui/card'
@@ -18,14 +18,14 @@ function OrderDetailRouteComponent() {
 
 	if (isPending) {
 		return (
-			<div className="container mx-auto px-4 py-8">
+			<div className="mx-auto px-4 py-8 container">
 				<div className="space-y-6">
 					<Card>
 						<CardContent className="p-8">
 							<div className="space-y-4">
-								<Skeleton className="h-8 w-48" />
-								<Skeleton className="h-4 w-full" />
-								<Skeleton className="h-4 w-3/4" />
+								<Skeleton className="w-48 h-8" />
+								<Skeleton className="w-full h-4" />
+								<Skeleton className="w-3/4 h-4" />
 							</div>
 						</CardContent>
 					</Card>
@@ -36,7 +36,7 @@ function OrderDetailRouteComponent() {
 
 	if (error) {
 		return (
-			<div className="container mx-auto px-4 py-8">
+			<div className="mx-auto px-4 py-8 container">
 				<Card>
 					<CardContent className="p-8 text-center">
 						<p className="text-red-500">Error loading order: {error.message}</p>
@@ -48,7 +48,7 @@ function OrderDetailRouteComponent() {
 
 	if (!order) {
 		return (
-			<div className="container mx-auto px-4 py-8">
+			<div className="mx-auto px-4 py-8 container">
 				<Card>
 					<CardContent className="p-8 text-center">
 						<p className="text-gray-500">Order not found</p>

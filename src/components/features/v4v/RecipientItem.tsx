@@ -10,7 +10,7 @@ import { useZapCapabilityInfo } from '@/queries/profiles'
 import { Badge } from '@/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Spinner } from '@/components/ui/spinner'
-import { UserCard } from '../shared/user/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 interface RecipientItemProps {
 	share: V4VDTO

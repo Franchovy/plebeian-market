@@ -1,5 +1,5 @@
 import { ProductCard } from '@/components/shared/product/ProductCard'
-import { PaymentDialog } from '@/components/checkout/PaymentDialog'
+import { PaymentDialog } from '@/components/features/checkout/PaymentDialog'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { authStore } from '@/lib/stores/auth'
 import type { PaymentInvoiceData } from '@/lib/types/invoice'
@@ -25,7 +25,7 @@ import { CreditCard, Download, MapPin, MessageSquare, Package, Receipt, Truck } 
 import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { DetailField } from './DetailField'
-import { Separator } from '../ui/separator'
+import { Separator } from '@/components/ui/separator'
 import { OrderActions } from './OrderActions'
 import { TimelineEventCard } from './TimelineEventCard'
 

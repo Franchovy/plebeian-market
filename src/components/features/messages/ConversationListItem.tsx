@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { Card } from '@/components/ui/card'
 import { MessageSquareText } from 'lucide-react'
-import { UserCard } from '../shared/user/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 export interface ConversationItemData {
 	pubkey: string

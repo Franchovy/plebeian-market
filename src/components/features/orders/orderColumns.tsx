@@ -4,7 +4,7 @@ import { formatSats, getBuyerPubkey, getEventDate, getOrderAmount, getOrderId, g
 import { Link } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
 import { OrderActions } from './OrderActions'
-import { UserCard } from '../shared/user/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 // Base columns that are common to all order lists
 export const baseOrderColumns: ColumnDef<OrderWithRelatedEvents>[] = [

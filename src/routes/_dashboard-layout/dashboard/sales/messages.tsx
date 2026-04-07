@@ -1,4 +1,4 @@
-import { ConversationListItem, type ConversationItemData } from '@/components/messages/ConversationListItem'
+import { ConversationListItem, type ConversationItemData } from '@/components/features/messages/ConversationListItem'
 import { authStore } from '@/lib/stores/auth'
 import { notificationActions } from '@/lib/stores/notifications'
 import { useConversationsList } from '@/queries/messages'
@@ -23,19 +23,19 @@ function MessagesListComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:block sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6">
-				<h1 className="text-2xl font-bold">Messages</h1>
+			<div className="hidden lg:block top-0 z-10 sticky bg-white px-4 lg:px-6 py-4 border-b">
+				<h1 className="font-bold text-2xl">Messages</h1>
 			</div>
 			<div className="space-y-4 p-4 lg:p-8">
 				{isLoading && (
 					<div className="flex flex-col justify-center items-center py-12">
-						<Loader2 className="w-8 h-8 animate-spin text-primary" />
-						<p className="ml-2 mt-2">Loading conversations...</p>
+						<Loader2 className="w-8 h-8 text-primary animate-spin" />
+						<p className="mt-2 ml-2">Loading conversations...</p>
 					</div>
 				)}
-				{error && <p className="text-destructive p-4 text-center">Error loading conversations: {error.message}</p>}
+				{error && <p className="p-4 text-destructive text-center">Error loading conversations: {error.message}</p>}
 				{!isLoading && !error && conversations?.length === 0 && (
-					<div className="p-8 text-center text-muted-foreground border bg-background rounded-md min-h-[200px] flex flex-col justify-center items-center">
+					<div className="flex flex-col justify-center items-center bg-background p-8 border rounded-md min-h-[200px] text-muted-foreground text-center">
 						<MessageSquareText size={48} className="mb-4" />
 						<p>No conversations yet.</p>
 						<p className="text-sm">Your conversations will appear here.</p>

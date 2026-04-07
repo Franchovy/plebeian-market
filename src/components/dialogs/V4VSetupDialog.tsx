@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { V4VManager } from '@/components/v4v/V4VManager'
+import { V4VManager } from '@/components/features/v4v/V4VManager'
 import { useV4VShares } from '@/queries/v4v'
 import { useMemo } from 'react'
 

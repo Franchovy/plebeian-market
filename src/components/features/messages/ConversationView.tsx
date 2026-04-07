@@ -1,5 +1,5 @@
-import { ChatMessageBubble } from '@/components/messages/ChatMessageBubble'
-import { MessageInput } from '@/components/messages/MessageInput'
+import { ChatMessageBubble } from '@/components/features/messages/ChatMessageBubble'
+import { MessageInput } from '@/components/features/messages/MessageInput'
 import { Button } from '@/components/ui/button'
 import { authStore } from '@/lib/stores/auth'
 import { notificationActions } from '@/lib/stores/notifications'
@@ -87,15 +87,15 @@ export function ConversationView({ otherUserPubkey, onTitleChange }: Conversatio
 	return (
 		<div className="flex flex-col h-full">
 			{/* Messages Area */}
-			<div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
+			<div className="flex-1 space-y-4 p-4 min-h-0 overflow-y-auto">
 				{isLoading && (
 					<div className="flex justify-center items-center h-full">
-						<Loader2 className="w-8 h-8 animate-spin text-primary" />
+						<Loader2 className="w-8 h-8 text-primary animate-spin" />
 						<p className="ml-2">Loading messages...</p>
 					</div>
 				)}
 				{error && (
-					<div className="text-center text-destructive">
+					<div className="text-destructive text-center">
 						<p>Error loading messages: {error.message}</p>
 						<Button onClick={() => refetch()} className="mt-2">
 							Try Again
@@ -103,7 +103,7 @@ export function ConversationView({ otherUserPubkey, onTitleChange }: Conversatio
 					</div>
 				)}
 				{!isLoading && !error && messages && messages.length === 0 && (
-					<div className="text-center text-muted-foreground pt-10">
+					<div className="pt-10 text-muted-foreground text-center">
 						<p>No messages yet. Start the conversation!</p>
 					</div>
 				)}
@@ -115,7 +115,7 @@ export function ConversationView({ otherUserPubkey, onTitleChange }: Conversatio
 
 			{/* Input Area */}
 			{otherUserPubkey && (
-				<div className="flex-shrink-0 border-t bg-background">
+				<div className="flex-shrink-0 bg-background border-t">
 					<MessageInput onSendMessage={handleSendMessage} isSending={isSending} />
 				</div>
 			)}

@@ -1,8 +1,8 @@
-import { UserDisplayComponent } from '@/components/UserDisplayComponent'
+import { UserDisplayComponent } from '@/components/features/dashboard/UserDisplayComponent'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { ProfileSearch } from '@/components/v4v/ProfileSearch'
+import { ProfileSearch } from '@/components/features/v4v/ProfileSearch'
 import {
 	useAddAdminMutation,
 	useAddEditorMutation,
@@ -203,10 +203,10 @@ function TeamComponent() {
 		return (
 			<div className="space-y-6 p-6">
 				<div className="animate-pulse">
-					<div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+					<div className="bg-gray-200 mb-4 rounded w-1/4 h-8"></div>
 					<div className="space-y-3">
-						<div className="h-4 bg-gray-200 rounded w-1/2"></div>
-						<div className="h-4 bg-gray-200 rounded w-1/3"></div>
+						<div className="bg-gray-200 rounded w-1/2 h-4"></div>
+						<div className="bg-gray-200 rounded w-1/3 h-4"></div>
 					</div>
 				</div>
 			</div>
@@ -216,11 +216,11 @@ function TeamComponent() {
 	if (!amIAdmin) {
 		return (
 			<div className="space-y-6 p-6">
-				<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+				<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 					<div className="flex items-center gap-3">
 						<Shield className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Team</h1>
+							<h1 className="font-bold text-2xl">Team</h1>
 							<p className="text-muted-foreground text-sm">Manage your team settings</p>
 						</div>
 					</div>
@@ -229,8 +229,8 @@ function TeamComponent() {
 				<Card>
 					<CardContent className="p-6">
 						<div className="text-center">
-							<Shield className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-							<h3 className="text-lg font-medium mb-2">Access Denied</h3>
+							<Shield className="mx-auto mb-4 w-16 h-16 text-gray-400" />
+							<h3 className="mb-2 font-medium text-lg">Access Denied</h3>
 							<p className="text-gray-600">You don't have permission to manage team settings.</p>
 						</div>
 					</CardContent>
@@ -241,11 +241,11 @@ function TeamComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 				<div className="flex items-center gap-3">
 					<Globe className="w-6 h-6 text-muted-foreground" />
 					<div>
-						<h1 className="text-2xl font-bold">Team</h1>
+						<h1 className="font-bold text-2xl">Team</h1>
 						<p className="text-muted-foreground text-sm">Manage your team settings</p>
 					</div>
 				</div>
@@ -255,7 +255,7 @@ function TeamComponent() {
 					<div className="flex items-center gap-3">
 						<Globe className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Team</h1>
+							<h1 className="font-bold text-2xl">Team</h1>
 							<p className="text-muted-foreground text-sm">Manage your team settings</p>
 						</div>
 					</div>
@@ -270,8 +270,8 @@ function TeamComponent() {
 					</CardHeader>
 					<CardContent className="space-y-4">
 						{formattedAdmins.length === 0 ? (
-							<div className="text-center py-8 text-gray-500">
-								<Shield className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+							<div className="py-8 text-gray-500 text-center">
+								<Shield className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 								<p>No administrators found</p>
 							</div>
 						) : (
@@ -301,7 +301,7 @@ function TeamComponent() {
 																		removeUserFromAllRolesMutation.isPending
 																	}
 																	title={action.label}
-																	className="h-8 w-8 p-0"
+																	className="p-0 w-8 h-8"
 																>
 																	<Icon className={`w-4 h-4 ${action.color}`} />
 																</Button>
@@ -329,8 +329,8 @@ function TeamComponent() {
 					</CardHeader>
 					<CardContent className="space-y-4">
 						{formattedEditors.length === 0 ? (
-							<div className="text-center py-8 text-gray-500">
-								<Edit className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+							<div className="py-8 text-gray-500 text-center">
+								<Edit className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 								<p>No editors found</p>
 							</div>
 						) : (
@@ -360,7 +360,7 @@ function TeamComponent() {
 																		removeUserFromAllRolesMutation.isPending
 																	}
 																	title={action.label}
-																	className="h-8 w-8 p-0"
+																	className="p-0 w-8 h-8"
 																>
 																	<Icon className={`w-4 h-4 ${action.color}`} />
 																</Button>
@@ -392,7 +392,7 @@ function TeamComponent() {
 								<Label>Search for User</Label>
 								<ProfileSearch onSelect={handleAddAdmin} placeholder="Search profiles or paste npub..." />
 							</div>
-							<div className="text-xs text-gray-500">
+							<div className="text-gray-500 text-xs">
 								Note: New administrators will have full access to manage the marketplace settings and content.
 							</div>
 						</CardContent>
@@ -414,7 +414,7 @@ function TeamComponent() {
 								<Label>Search for User</Label>
 								<ProfileSearch onSelect={handleAddEditor} placeholder="Search profiles or paste npub..." />
 							</div>
-							<div className="text-xs text-gray-500">
+							<div className="text-gray-500 text-xs">
 								Note: New editors will have limited access to manage content but cannot modify administrative settings.
 							</div>
 						</CardContent>
@@ -431,7 +431,7 @@ function TeamComponent() {
 							{amIOwner ? <ShieldCheck className="w-5 h-5 text-green-600" /> : <Shield className="w-5 h-5 text-blue-600" />}
 							<div>
 								<div className="font-medium">{amIOwner ? 'Owner' : 'Administrator'}</div>
-								<div className="text-sm text-gray-600">
+								<div className="text-gray-600 text-sm">
 									{amIOwner
 										? 'You have full control over the marketplace and can manage all administrators.'
 										: 'You can manage marketplace settings and content but cannot add/remove administrators.'}

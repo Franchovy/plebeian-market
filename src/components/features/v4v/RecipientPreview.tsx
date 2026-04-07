@@ -1,6 +1,6 @@
 import { nip19 } from 'nostr-tools'
 import { Card } from '@/components/ui/card'
-import { UserCard } from '../shared/user/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 interface RecipientPreviewProps {
 	npub: string

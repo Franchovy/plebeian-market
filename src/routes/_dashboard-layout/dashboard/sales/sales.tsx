@@ -1,5 +1,5 @@
-import { OrderDataTable } from '@/components/orders/OrderDataTable'
-import { salesColumns } from '@/components/orders/orderColumns'
+import { OrderDataTable } from '@/components/features/orders/OrderDataTable'
+import { salesColumns } from '@/components/features/orders/orderColumns'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ndkActions } from '@/lib/stores/ndk'
 import { notificationActions } from '@/lib/stores/notifications'
@@ -78,7 +78,7 @@ function SalesComponent() {
 	return (
 		<div className="h-full">
 			<OrderDataTable
-				heading={<h1 className="text-2xl font-bold">Sales</h1>}
+				heading={<h1 className="font-bold text-2xl">Sales</h1>}
 				data={filteredSales}
 				columns={salesColumns}
 				isLoading={isLoading}

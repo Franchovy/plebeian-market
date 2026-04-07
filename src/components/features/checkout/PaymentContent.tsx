@@ -6,7 +6,7 @@ import {
 } from '@/components/shared/LightningPaymentProcessor'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { WalletSelector } from '@/components/checkout/WalletSelector'
+import { WalletSelector } from '@/components/features/checkout/WalletSelector'
 import type { PaymentInvoiceData } from '@/lib/types/invoice'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react'

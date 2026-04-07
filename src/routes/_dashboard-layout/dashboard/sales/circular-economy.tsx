@@ -1,4 +1,4 @@
-import { V4VManager } from '@/components/v4v/V4VManager'
+import { V4VManager } from '@/components/features/v4v/V4VManager'
 import { authStore } from '@/lib/stores/auth'
 import { useV4VShares } from '@/queries/v4v'
 import { useDashboardTitle } from '@/routes/_dashboard-layout'
@@ -45,8 +45,8 @@ function CircularEconomyComponent() {
 	if (isLoading) {
 		return (
 			<div>
-				<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
-					<h1 className="text-2xl font-bold">Circular Economy</h1>
+				<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
+					<h1 className="font-bold text-2xl">Circular Economy</h1>
 				</div>
 				<div className="space-y-6 p-4 lg:p-6">
 					<p>Loading V4V settings...</p>
@@ -57,8 +57,8 @@ function CircularEconomyComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
-				<h1 className="text-2xl font-bold">Circular Economy</h1>
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
+				<h1 className="font-bold text-2xl">Circular Economy</h1>
 			</div>
 			<div className="space-y-6 p-4 lg:p-6">
 				<V4VManager

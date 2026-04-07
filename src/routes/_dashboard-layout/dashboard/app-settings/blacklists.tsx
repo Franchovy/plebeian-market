@@ -1,6 +1,6 @@
 import { CollectionDisplayComponent } from '@/components/features/dashboard/CollectionDisplayComponent'
 import { ProductDisplayComponent } from '@/components/features/dashboard/ProductDisplayComponent'
-import { UserDisplayComponent } from '@/components/UserDisplayComponent'
+import { UserDisplayComponent } from '@/components/features/dashboard/UserDisplayComponent'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'

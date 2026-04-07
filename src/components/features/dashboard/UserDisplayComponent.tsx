@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
 import { profileQueryOptions } from '@/queries/profiles'
 import { nip19 } from 'nostr-tools'
 import type { ReactNode } from 'react'
-import { UserCard } from './shared/user/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 interface UserDisplayComponentProps {
 	userPubkey: string

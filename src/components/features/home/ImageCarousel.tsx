@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/shared/carousel'
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { ImageOff } from 'lucide-react'
 import { useState, useEffect } from 'react'
 

@@ -1,4 +1,4 @@
-import { RelayManager } from '@/components/ui/relay-manager'
+import { RelayManager } from '@/components/features/relays/RelayManager'
 import { useDashboardTitle } from '@/routes/_dashboard-layout'
 import { createFileRoute } from '@tanstack/react-router'
 import { Globe } from 'lucide-react'
@@ -11,11 +11,11 @@ function NetworkComponent() {
 	useDashboardTitle('Network')
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 				<div className="flex items-center gap-3">
 					<Globe className="w-6 h-6 text-muted-foreground" />
 					<div>
-						<h1 className="text-2xl font-bold">Network</h1>
+						<h1 className="font-bold text-2xl">Network</h1>
 						<p className="text-muted-foreground text-sm">Manage your Nostr relay connections</p>
 					</div>
 				</div>
@@ -25,7 +25,7 @@ function NetworkComponent() {
 					<div className="flex items-center gap-3">
 						<Globe className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Network</h1>
+							<h1 className="font-bold text-2xl">Network</h1>
 							<p className="text-muted-foreground text-sm">Manage your Nostr relay connections</p>
 						</div>
 					</div>

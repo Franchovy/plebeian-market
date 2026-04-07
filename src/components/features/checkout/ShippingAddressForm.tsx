@@ -2,9 +2,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { CountryCombobox, isValidCountry } from '@/components/checkout/CountryCombobox'
-import { CityCombobox } from '@/components/checkout/CityCombobox'
-import { PhoneInput } from '@/components/checkout/PhoneInput'
+import { CountryCombobox, isValidCountry } from '@/components/features/checkout/CountryCombobox'
+import { CityCombobox } from '@/components/features/checkout/CityCombobox'
+import { PhoneInput } from '@/components/features/checkout/PhoneInput'
 import { cartStore } from '@/lib/stores/cart'
 import { useStore } from '@tanstack/react-store'
 import { getShippingEvent, getShippingService, getShippingPickupAddressString, getShippingTitle } from '@/queries/shipping'
@@ -106,7 +106,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 	}, [cart.products])
 	return (
 		<div className="flex flex-col h-full">
-			<div className="flex-1 overflow-y-auto space-y-4">
+			<div className="flex-1 space-y-4 overflow-y-auto">
 				<form
 					id="shipping-form"
 					onSubmit={(e) => {
@@ -130,7 +130,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 							}}
 							children={(field: any) => (
 								<div>
-									<Label htmlFor={field.name} className="text-sm font-medium">
+									<Label htmlFor={field.name} className="font-medium text-sm">
 										Full Name {!noAddressRequired && <span className="text-red-500">*</span>}
 									</Label>
 									<Input
@@ -143,7 +143,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 										required={!noAddressRequired}
 									/>
 									{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-										<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+										<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 									)}
 								</div>
 							)}
@@ -163,7 +163,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 							}}
 							children={(field: any) => (
 								<div>
-									<Label htmlFor={field.name} className="text-sm font-medium">
+									<Label htmlFor={field.name} className="font-medium text-sm">
 										Email Address
 									</Label>
 									<Input
@@ -175,7 +175,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 										onBlur={field.handleBlur}
 									/>
 									{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-										<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+										<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 									)}
 								</div>
 							)}
@@ -189,7 +189,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 								name="phone"
 								children={(field: any) => (
 									<div>
-										<Label htmlFor={field.name} className="text-sm font-medium">
+										<Label htmlFor={field.name} className="font-medium text-sm">
 											Phone Number
 										</Label>
 										<PhoneInput
@@ -207,19 +207,19 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 
 					{/* Pickup notification */}
 					{isAllPickup && (
-						<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-							<h3 className="text-sm font-medium text-blue-800 mb-2">Pickup Order</h3>
-							<p className="text-sm text-blue-700 mb-3">All items in your order are for pickup. No shipping address is required.</p>
+						<div className="bg-blue-50 p-4 border border-blue-200 rounded-lg">
+							<h3 className="mb-2 font-medium text-blue-800 text-sm">Pickup Order</h3>
+							<p className="mb-3 text-blue-700 text-sm">All items in your order are for pickup. No shipping address is required.</p>
 
 							{pickupAddresses.length > 0 && (
 								<div className="space-y-2">
-									<h4 className="text-xs font-medium text-blue-800 uppercase tracking-wide">
+									<h4 className="font-medium text-blue-800 text-xs uppercase tracking-wide">
 										Pickup Location{pickupAddresses.length > 1 ? 's' : ''}:
 									</h4>
 									{pickupAddresses.map((pickup, index) => (
-										<div key={index} className="bg-white rounded-md p-3 border border-blue-100">
-											<div className="text-sm font-medium text-gray-900">{pickup.title}</div>
-											<div className="text-sm text-gray-600 mt-1">{pickup.address}</div>
+										<div key={index} className="bg-white p-3 border border-blue-100 rounded-md">
+											<div className="font-medium text-gray-900 text-sm">{pickup.title}</div>
+											<div className="mt-1 text-gray-600 text-sm">{pickup.address}</div>
 										</div>
 									))}
 								</div>
@@ -229,9 +229,9 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 
 					{/* Digital delivery notification */}
 					{isAllDigital && (
-						<div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-							<h3 className="text-sm font-medium text-purple-800 mb-2">Digital Delivery</h3>
-							<p className="text-sm text-purple-700">
+						<div className="bg-purple-50 p-4 border border-purple-200 rounded-lg">
+							<h3 className="mb-2 font-medium text-purple-800 text-sm">Digital Delivery</h3>
+							<p className="text-purple-700 text-sm">
 								All items in your order will be delivered digitally. No shipping address is required. Check your messages for delivery
 								details after purchase.
 							</p>
@@ -240,9 +240,9 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 
 					{/* Mixed pickup + digital notification */}
 					{noAddressRequired && !isAllPickup && !isAllDigital && (
-						<div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-							<h3 className="text-sm font-medium text-indigo-800 mb-2">No Shipping Required</h3>
-							<p className="text-sm text-indigo-700">
+						<div className="bg-indigo-50 p-4 border border-indigo-200 rounded-lg">
+							<h3 className="mb-2 font-medium text-indigo-800 text-sm">No Shipping Required</h3>
+							<p className="text-indigo-700 text-sm">
 								All items in your order are either for pickup or digital delivery. No shipping address is required.
 							</p>
 						</div>
@@ -263,7 +263,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 								}}
 								children={(field: any) => (
 									<div>
-										<Label htmlFor={field.name} className="text-sm font-medium">
+										<Label htmlFor={field.name} className="font-medium text-sm">
 											Street Address <span className="text-red-500">*</span>
 										</Label>
 										<Input
@@ -276,7 +276,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 											required={!noAddressRequired}
 										/>
 										{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-											<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+											<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 										)}
 									</div>
 								)}
@@ -297,7 +297,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 										}}
 										children={(field: any) => (
 											<div>
-												<Label htmlFor={field.name} className="text-sm font-medium">
+												<Label htmlFor={field.name} className="font-medium text-sm">
 													City <span className="text-red-500">*</span>
 												</Label>
 												<CityCombobox
@@ -310,7 +310,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 													selectedCountry={selectedCountry}
 												/>
 												{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-													<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+													<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 												)}
 											</div>
 										)}
@@ -330,7 +330,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 								}}
 								children={(field: any) => (
 									<div>
-										<Label htmlFor={field.name} className="text-sm font-medium">
+										<Label htmlFor={field.name} className="font-medium text-sm">
 											ZIP/Postal Code <span className="text-red-500">*</span>
 										</Label>
 										<Input
@@ -343,7 +343,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 											required={!noAddressRequired}
 										/>
 										{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-											<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+											<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 										)}
 									</div>
 								)}
@@ -361,7 +361,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 								}}
 								children={(field: any) => (
 									<div>
-										<Label htmlFor={field.name} className="text-sm font-medium">
+										<Label htmlFor={field.name} className="font-medium text-sm">
 											Country <span className="text-red-500">*</span>
 										</Label>
 										<CountryCombobox
@@ -373,7 +373,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 											required={!noAddressRequired}
 										/>
 										{field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
-											<p className="text-xs text-red-500 mt-1">{field.state.meta.errors[0]}</p>
+											<p className="mt-1 text-red-500 text-xs">{field.state.meta.errors[0]}</p>
 										)}
 									</div>
 								)}
@@ -386,7 +386,7 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 						name="additionalInformation"
 						children={(field: any) => (
 							<div>
-								<Label htmlFor={field.name} className="text-sm font-medium">
+								<Label htmlFor={field.name} className="font-medium text-sm">
 									Delivery Notes (Optional)
 								</Label>
 								<Textarea
@@ -397,20 +397,20 @@ export function ShippingAddressForm({ form, hasAllShippingMethods }: ShippingAdd
 									onBlur={field.handleBlur}
 									rows={3}
 								/>
-								<p className="text-xs text-gray-500 mt-1">Any special delivery instructions or notes for the seller</p>
+								<p className="mt-1 text-gray-500 text-xs">Any special delivery instructions or notes for the seller</p>
 							</div>
 						)}
 					/>
 
 					{/* Validation Messages */}
 					{!hasAllShippingMethods && (
-						<div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-							<p className="text-sm text-yellow-700">Please select shipping options for all items in your cart.</p>
+						<div className="bg-yellow-50 p-4 border-yellow-400 border-l-4">
+							<p className="text-yellow-700 text-sm">Please select shipping options for all items in your cart.</p>
 						</div>
 					)}
 				</form>
 			</div>
-			<div className="flex-shrink-0 bg-white border-t pt-4">
+			<div className="flex-shrink-0 bg-white pt-4 border-t">
 				<form.Subscribe
 					selector={(state: any) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]: [boolean, boolean]) => (
