@@ -1,5 +1,5 @@
-import { InfiniteProductList } from '@/components/InfiniteProductList'
-import { ProductFilters, defaultProductFilters, type ProductFilterState } from '@/components/ProductFilters'
+import { InfiniteProductList } from '@/components/features/home/InfiniteProductList'
+import { ProductFilters, defaultProductFilters, type ProductFilterState } from '@/components/features/home/ProductFilters'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { PRODUCT_CATEGORIES } from '@/lib/constants'
@@ -221,18 +221,18 @@ function ProductsRoute() {
 
 	// Render homepage hero content
 	const renderHomepageHero = () => (
-		<div className="flex flex-col items-center justify-center text-white text-center lg:col-span-2 relative z-20 mt-4 lg:mt-0">
+		<div className="z-20 relative flex flex-col justify-center items-center lg:col-span-2 mt-4 lg:mt-0 text-white text-center">
 			{/* Button in same position as product image */}
-			<div className="mb-2 h-40 lg:h-48 flex items-center justify-center">
+			<div className="flex justify-center items-center mb-2 h-40 lg:h-48">
 				<Button variant="focus" size="lg" onClick={handleStartSelling}>
 					<span className="flex items-center gap-2">
-						<span className="i-nostr w-6 h-6"></span>Start Selling
+						<span className="w-6 h-6 i-nostr"></span>Start Selling
 					</span>
 				</Button>
 			</div>
 
-			<div className="flex items-center justify-center h-16 lg:h-20">
-				<h1 className="text-2xl lg:text-4xl font-theylive transition-opacity duration-500">Browse Products</h1>
+			<div className="flex justify-center items-center h-16 lg:h-20">
+				<h1 className="font-theylive text-2xl lg:text-4xl transition-opacity duration-500">Browse Products</h1>
 			</div>
 
 			<div className="flex flex-col gap-4">
@@ -257,12 +257,12 @@ function ProductsRoute() {
 
 	// Render product hero content
 	const renderProductHero = () => (
-		<div className="flex flex-col items-center justify-center text-white text-center lg:col-span-2 relative z-20 mt-4 lg:mt-0">
+		<div className="z-20 relative flex flex-col justify-center items-center lg:col-span-2 mt-4 lg:mt-0 text-white text-center">
 			{/* Featured Product Image - Fixed size container */}
-			<div className="mb-2 w-40 h-40 lg:w-48 lg:h-48">
+			<div className="mb-2 w-40 lg:w-48 h-40 lg:h-48">
 				{backgroundImageUrl && (
 					<Link to={`/products/${currentProductId}`} className="block w-full h-full">
-						<div className="relative w-full h-full overflow-hidden rounded-lg shadow-xl ring-2 ring-white/20 hover:ring-secondary transition-all">
+						<div className="relative shadow-xl rounded-lg ring-2 ring-white/20 hover:ring-secondary w-full h-full overflow-hidden transition-all">
 							<img
 								src={backgroundImageUrl}
 								alt={displayTitle || 'Featured product'}
@@ -273,8 +273,8 @@ function ProductsRoute() {
 				)}
 			</div>
 
-			<div className="flex items-center justify-center h-16 lg:h-20">
-				<h1 className="text-2xl lg:text-4xl font-theylive transition-opacity duration-500">{displayTitle || 'Loading...'}</h1>
+			<div className="flex justify-center items-center h-16 lg:h-20">
+				<h1 className="font-theylive text-2xl lg:text-4xl transition-opacity duration-500">{displayTitle || 'Loading...'}</h1>
 			</div>
 
 			<div className="flex flex-col gap-4">
@@ -308,8 +308,8 @@ function ProductsRoute() {
 					onTouchEnd={handleTouchEnd}
 				>
 					<div className="hero-overlays">
-						<div className="absolute inset-0 bg-radial-overlay z-10 opacity-40" />
-						<div className="absolute inset-0 opacity-20 bg-dots-overlay z-10" />
+						<div className="z-10 absolute inset-0 bg-radial-overlay opacity-40" />
+						<div className="z-10 absolute inset-0 bg-dots-overlay opacity-20" />
 					</div>
 
 					<div className="hero-content">{renderHomepageHero()}</div>
@@ -323,26 +323,26 @@ function ProductsRoute() {
 					onTouchEnd={handleTouchEnd}
 				>
 					<div className="hero-overlays">
-						<div className="absolute inset-0 bg-radial-overlay z-10 opacity-40" />
-						<div className="absolute inset-0 opacity-20 bg-dots-overlay z-10" />
+						<div className="z-10 absolute inset-0 bg-radial-overlay opacity-40" />
+						<div className="z-10 absolute inset-0 bg-dots-overlay opacity-20" />
 					</div>
 
 					<div className="hero-content">{renderProductHero()}</div>
 				</div>
 			)}
 			{/* Tag Filter Bar */}
-			<div className="sticky top-0 z-20 bg-off-black border-b shadow-sm">
-				<div className="px-4 py-3 flex items-center justify-between gap-4">
-					<div className="overflow-x-auto flex-1">
+			<div className="top-0 z-20 sticky bg-off-black shadow-sm border-b">
+				<div className="flex justify-between items-center gap-4 px-4 py-3">
+					<div className="flex-1 overflow-x-auto">
 						<div className="flex items-center gap-2 min-w-max">
-							<Badge variant={!tag ? 'primaryActive' : 'primary'} className="cursor-pointer transition-colors" onClick={handleClearFilter}>
+							<Badge variant={!tag ? 'primaryActive' : 'primary'} className="transition-colors cursor-pointer" onClick={handleClearFilter}>
 								All
 							</Badge>
 							{defaultTags.map((tagName) => (
 								<Badge
 									key={tagName}
 									variant={tag === tagName ? 'primaryActive' : 'primary'}
-									className="cursor-pointer transition-colors"
+									className="transition-colors cursor-pointer"
 									onClick={() => handleTagClick(tagName)}
 								>
 									{tagName}

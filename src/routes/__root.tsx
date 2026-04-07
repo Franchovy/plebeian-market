@@ -7,7 +7,7 @@ import { configStore } from '@/lib/stores/config'
 import { useAmIAdmin } from '@/queries/app-settings'
 import { createRootRoute, Outlet, useNavigate, useLocation } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { DecryptPasswordDialog } from '@/components/auth/DecryptPasswordDialog'
+import { DecryptPasswordDialog } from '@/components/features/auth/DecryptPasswordDialog'
 import { Toaster } from 'sonner'
 import { useBlacklistSync } from '@/hooks/useBlacklistSync'
 import { useVanitySync } from '@/hooks/useVanitySync'
@@ -69,7 +69,7 @@ function RootLayout() {
 		<div className="relative flex flex-col min-h-screen">
 			<Header />
 
-			<main className="flex-grow flex flex-col">
+			<main className="flex flex-col flex-grow">
 				<Outlet />
 			</main>
 			<Pattern pattern="page" />

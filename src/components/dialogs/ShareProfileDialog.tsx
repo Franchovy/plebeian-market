@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { QRCode } from '@/components/ui/qr-code'
+import { QRCode } from '@/components/shared/qr-code'
 import { nip19 } from 'nostr-tools'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
@@ -32,7 +32,7 @@ export function ShareProfileDialog({ open, onOpenChange, pubkey, profileName }: 
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-md max-w-[calc(100%-2rem)] bg-white">
+			<DialogContent className="bg-white max-w-[calc(100%-2rem)] sm:max-w-md">
 				<DialogHeader>
 					<DialogTitle>Share Profile</DialogTitle>
 					<DialogDescription>
@@ -43,12 +43,12 @@ export function ShareProfileDialog({ open, onOpenChange, pubkey, profileName }: 
 				<div className="flex flex-col items-center gap-6 py-4">
 					<QRCode value={npub} size={200} showBorder={false} />
 
-					<div className="w-full space-y-2">
-						<p className="text-xs text-gray-500 text-center">npub</p>
+					<div className="space-y-2 w-full">
+						<p className="text-gray-500 text-xs text-center">npub</p>
 						<div className="flex items-center gap-2">
-							<code className="flex-1 p-2 bg-gray-100 rounded text-xs break-all select-all">{npub}</code>
+							<code className="flex-1 bg-gray-100 p-2 rounded text-xs break-all select-all">{npub}</code>
 							<Button variant="tertiary" size="icon" onClick={handleCopyNpub} className="shrink-0">
-								{isCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+								{isCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
 							</Button>
 						</div>
 					</div>

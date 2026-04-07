@@ -1,7 +1,7 @@
-import { ConversationView } from '@/components/messages/ConversationView'
+import { ConversationView } from '@/components/features/messages/ConversationView'
 import { SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { useState } from 'react'
-import { UserCard } from '../UserCard'
+import { UserCard } from '../shared/user/UserCard'
 
 interface ConversationSheetContentProps {
 	pubkey: string
@@ -11,7 +11,7 @@ export function ConversationSheetContent({ pubkey }: ConversationSheetContentPro
 	const [title, setTitle] = useState('Messages')
 
 	return (
-		<SheetContent side="right" className="w-full sm:max-w-xl flex flex-col p-0">
+		<SheetContent side="right" className="flex flex-col p-0 w-full sm:max-w-xl">
 			<SheetHeader className="p-6 pb-4 border-b">
 				<SheetTitle className="flex items-center gap-2">
 					<UserCard pubkey={pubkey} subtitle="npub" />

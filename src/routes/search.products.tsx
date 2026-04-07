@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useProductSearch, getProductTitle } from '@/queries/products'
-import { ProductCard } from '@/components/ProductCard'
+import { ProductCard } from '@/components/shared/product/ProductCard'
 import { useEffect, useState, useMemo } from 'react'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -104,16 +104,16 @@ function SearchProductsPage() {
 	}, [sort, exclude])
 
 	return (
-		<div className="container mx-auto px-4 py-6">
-			<h1 className="text-2xl font-heading mb-4">
+		<div className="mx-auto px-4 py-6 container">
+			<h1 className="mb-4 font-heading text-2xl">
 				Search results for: <span className="text-secondary">{q}</span>
 			</h1>
 
 			{/* Filter and Sort Bar */}
-			<div className="bg-gray-50 rounded-lg p-4 mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+			<div className="flex sm:flex-row flex-col items-start sm:items-center gap-4 bg-gray-50 mb-6 p-4 rounded-lg">
 				{/* Sort Radio Buttons */}
 				<div className="flex items-center gap-2">
-					<Label className="text-sm font-medium">Sort by:</Label>
+					<Label className="font-medium text-sm">Sort by:</Label>
 					<RadioGroup value={localSort} onValueChange={handleSortChange} className="flex gap-4">
 						<div className="flex items-center space-x-2">
 							<RadioGroupItem value="newest" id="newest" />
@@ -131,8 +131,8 @@ function SearchProductsPage() {
 				</div>
 
 				{/* Exclude Input */}
-				<div className="flex items-center gap-2 flex-1 sm:max-w-md">
-					<Label htmlFor="exclude" className="text-sm font-medium whitespace-nowrap">
+				<div className="flex flex-1 items-center gap-2 sm:max-w-md">
+					<Label htmlFor="exclude" className="font-medium text-sm whitespace-nowrap">
 						Exclude terms:
 					</Label>
 					<Input
@@ -146,11 +146,11 @@ function SearchProductsPage() {
 				</div>
 			</div>
 			{isFetching && results.length === 0 ? (
-				<div className="py-12 text-center text-muted-foreground">Searching...</div>
+				<div className="py-12 text-muted-foreground text-center">Searching...</div>
 			) : results.length === 0 ? (
 				<div className="py-12 text-center">No products found.</div>
 			) : (
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+				<div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 					{results.map((event) => (
 						<ProductCard key={event.id} product={event} />
 					))}

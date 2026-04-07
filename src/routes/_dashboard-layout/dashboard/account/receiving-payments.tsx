@@ -1,5 +1,5 @@
 import { DashboardListItem } from '@/components/layout/DashboardListItem'
-import { ProfileWalletCheck } from '@/components/ProfileWalletCheck'
+import { ProfileWalletCheck } from '@/components/features/wallet/ProfileWalletCheck'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Spinner } from '@/components/ui/spinner'
-import { WalletSetupGuide } from '@/components/WalletSetupGuide'
+import { WalletSetupGuide } from '@/components/features/wallet/WalletSetupGuide'
 import { PAYMENT_DETAILS_METHOD, type PaymentDetailsMethod } from '@/lib/constants'
 import { useNDK } from '@/lib/stores/ndk'
 import { isValidNip05 } from '@/lib/utils'
@@ -125,12 +125,12 @@ function ScopeSelector({ value, scopeId, scopeIds, userPubkey, onChange }: Scope
 
 					{collectionsQuery.data && collectionsQuery.data.length > 0 && (
 						<>
-							<div className="px-2 py-1 text-xs font-medium text-muted-foreground">Collections</div>
+							<div className="px-2 py-1 font-medium text-muted-foreground text-xs">Collections</div>
 							{collectionsQuery.data.map((collection) => (
 								<SelectItem key={getCollectionId(collection)} value={`collection:${getCollectionId(collection)}`}>
 									<div className="flex items-center gap-2">
 										<StoreIcon className="w-5 h-5" />
-										<span className="truncate max-w-[200px]">{getCollectionTitle(collection)}</span>
+										<span className="max-w-[200px] truncate">{getCollectionTitle(collection)}</span>
 									</div>
 								</SelectItem>
 							))}
@@ -139,7 +139,7 @@ function ScopeSelector({ value, scopeId, scopeIds, userPubkey, onChange }: Scope
 
 					{productsQuery.data && productsQuery.data.length > 0 && (
 						<>
-							<div className="px-2 py-1 text-xs font-medium text-muted-foreground">Products</div>
+							<div className="px-2 py-1 font-medium text-muted-foreground text-xs">Products</div>
 							<SelectItem value="product:">
 								<div className="flex items-center gap-2">
 									<PackageIcon className="w-5 h-5" />
@@ -154,7 +154,7 @@ function ScopeSelector({ value, scopeId, scopeIds, userPubkey, onChange }: Scope
 			{/* Multi-product selector popover */}
 			{isProductSelectorOpen && productsQuery.data && productsQuery.data.length > 0 && (
 				<Card className="p-4">
-					<div className="flex items-center justify-between mb-3">
+					<div className="flex justify-between items-center mb-3">
 						<Label className="font-semibold">Select Products</Label>
 						<Button variant="ghost" size="sm" onClick={() => setIsProductSelectorOpen(false)}>
 							Done
@@ -167,7 +167,7 @@ function ScopeSelector({ value, scopeId, scopeIds, userPubkey, onChange }: Scope
 							return (
 								<div key={productId} className="flex items-center gap-2">
 									<Checkbox id={productId} checked={isSelected} onCheckedChange={() => handleProductToggle(productId)} />
-									<Label htmlFor={productId} className="cursor-pointer flex-1">
+									<Label htmlFor={productId} className="flex-1 cursor-pointer">
 										{getProductTitle(product)}
 									</Label>
 								</div>
@@ -198,7 +198,7 @@ function PaymentDetailConfirmationCard({ value, type, onConfirm, onCancel }: Pay
 	const numAddresses = 5
 
 	return (
-		<Card className="border-yellow-200 bg-yellow-50">
+		<Card className="bg-yellow-50 border-yellow-200">
 			<CardHeader>
 				<CardTitle className="text-yellow-800">Confirm Payment Details</CardTitle>
 				<CardDescription>
@@ -208,8 +208,8 @@ function PaymentDetailConfirmationCard({ value, type, onConfirm, onCancel }: Pay
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-4">
-				<div className="p-3 bg-white rounded border">
-					<p className="text-sm font-mono break-all">{value}</p>
+				<div className="bg-white p-3 border rounded">
+					<p className="font-mono text-sm break-all">{value}</p>
 				</div>
 
 				{type === 'extended_public_key' &&
@@ -220,8 +220,8 @@ function PaymentDetailConfirmationCard({ value, type, onConfirm, onCancel }: Pay
 							if (!derivedAddresses || derivedAddresses.length === 0) {
 								return (
 									<div className="space-y-2">
-										<Label className="text-sm font-medium text-red-700">Error:</Label>
-										<div className="text-sm text-red-600 p-2 bg-red-50 rounded">
+										<Label className="font-medium text-red-700 text-sm">Error:</Label>
+										<div className="bg-red-50 p-2 rounded text-red-600 text-sm">
 											Unable to derive addresses from this extended public key. Please check the format.
 										</div>
 									</div>
@@ -230,10 +230,10 @@ function PaymentDetailConfirmationCard({ value, type, onConfirm, onCancel }: Pay
 
 							return (
 								<div className="space-y-2">
-									<Label className="text-sm font-medium">Preview of derived addresses:</Label>
+									<Label className="font-medium text-sm">Preview of derived addresses:</Label>
 									<div className="space-y-1">
 										{derivedAddresses.slice(0, numAddresses).map((address, index) => (
-											<div key={index} className="text-xs font-mono p-2 bg-gray-50 rounded">
+											<div key={index} className="bg-gray-50 p-2 rounded font-mono text-xs">
 												{index}: {address}
 											</div>
 										))}
@@ -244,8 +244,8 @@ function PaymentDetailConfirmationCard({ value, type, onConfirm, onCancel }: Pay
 							console.error('Error previewing derived addresses:', error)
 							return (
 								<div className="space-y-2">
-									<Label className="text-sm font-medium text-red-700">Error:</Label>
-									<div className="text-sm text-red-600 p-2 bg-red-50 rounded">
+									<Label className="font-medium text-red-700 text-sm">Error:</Label>
+									<div className="bg-red-50 p-2 rounded text-red-600 text-sm">
 										Invalid extended public key format. Please verify the key is correct.
 									</div>
 								</div>
@@ -513,7 +513,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 	}
 
 	const triggerContent = isEditing ? (
-		<div className="flex items-center gap-2 min-w-0 flex-1">
+		<div className="flex flex-1 items-center gap-2 min-w-0">
 			<PaymentMethodIcon method={editedPaymentDetail.paymentMethod} />
 			<span className="truncate">
 				{editedPaymentDetail.paymentDetail.length > 30
@@ -530,7 +530,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 
 	const triggerActions = isEditing ? (
 		<div className="flex items-center gap-2">
-			{editedPaymentDetail.isDefault && <StarIcon className="w-6 h-6 text-yellow-400 fill-current" />}
+			{editedPaymentDetail.isDefault && <StarIcon className="fill-current w-6 h-6 text-yellow-400" />}
 			{editedPaymentDetail.scope === 'global' ? (
 				<>
 					<span className="font-bold">Global</span>
@@ -558,7 +558,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 	)
 
 	return (
-		<div className="border-t pt-4">
+		<div className="pt-4 border-t">
 			{showConfirmation ? (
 				<PaymentDetailConfirmationCard
 					value={tempValidatedValue}
@@ -568,7 +568,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 				/>
 			) : (
 				<form onSubmit={handleValidateAndConfirm} className="space-y-4">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div className="gap-4 grid grid-cols-1 md:grid-cols-2">
 						<div className="space-y-2">
 							<Label htmlFor="payment-method" className="font-medium">
 								Payment Method
@@ -641,7 +641,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 
 									if (!currentAddress) {
 										return (
-											<div className="bg-red-50 p-3 rounded-md space-y-2">
+											<div className="space-y-2 bg-red-50 p-3 rounded-md">
 												<Label className="font-medium text-red-700">Error</Label>
 												<small className="text-red-600">Unable to derive address from extended public key</small>
 											</div>
@@ -649,7 +649,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 									}
 
 									return (
-										<div className="bg-gray-50 p-3 rounded-md space-y-2">
+										<div className="space-y-2 bg-gray-50 p-3 rounded-md">
 											<Label className="font-medium">Current address</Label>
 											<div className="space-y-1">
 												<small className="font-mono">
@@ -662,7 +662,7 @@ function PaymentDetailForm({ paymentDetail, isOpen, onOpenChange, onSuccess }: P
 								} catch (error) {
 									console.error('Error displaying current address:', error)
 									return (
-										<div className="bg-red-50 p-3 rounded-md space-y-2">
+										<div className="space-y-2 bg-red-50 p-3 rounded-md">
 											<Label className="font-medium text-red-700">Error</Label>
 											<small className="text-red-600">Invalid extended public key format</small>
 										</div>
@@ -770,7 +770,7 @@ function PaymentDetailListItem({ paymentDetail, isOpen, onOpenChange, isDeleting
 	const triggerContent = (
 		<div>
 			<p className="font-semibold">{paymentMethodLabels[paymentDetail.paymentMethod]}</p>
-			<p className="text-sm text-muted-foreground break-all">
+			<p className="text-muted-foreground text-sm break-all">
 				{paymentDetail.paymentDetail} - {paymentDetail.scopeName}
 			</p>
 		</div>
@@ -784,11 +784,11 @@ function PaymentDetailListItem({ paymentDetail, isOpen, onOpenChange, isDeleting
 				e.stopPropagation()
 				handleDelete()
 			}}
-			className="h-8 w-8 text-destructive hover:bg-destructive/10"
+			className="hover:bg-destructive/10 w-8 h-8 text-destructive"
 			aria-label="Delete payment detail"
 			disabled={deleteMutation.isPending}
 		>
-			{deleteMutation.isPending ? <Spinner className="h-4 w-4" /> : <TrashIcon className="h-4 w-4" />}
+			{deleteMutation.isPending ? <Spinner className="w-4 h-4" /> : <TrashIcon className="w-4 h-4" />}
 		</Button>
 	)
 
@@ -843,12 +843,12 @@ function ReceivingPaymentsComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
-				<h1 className="text-2xl font-bold">Receiving Payments</h1>
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
+				<h1 className="font-bold text-2xl">Receiving Payments</h1>
 				{hasPaymentDetails && (
 					<Button
 						onClick={() => handleOpenChange('new', true)}
-						className="bg-neutral-800 hover:bg-neutral-700 text-white flex items-center gap-2 px-4 py-2 text-sm font-semibold"
+						className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 px-4 py-2 font-semibold text-white text-sm"
 					>
 						<PlusIcon className="w-5 h-5" />
 						Add Payment Method
@@ -864,7 +864,7 @@ function ReceivingPaymentsComponent() {
 							<Button
 								onClick={() => handleOpenChange('new', true)}
 								size="lg"
-								className="bg-neutral-800 hover:bg-neutral-700 text-white flex items-center gap-2 px-6 py-3"
+								className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 px-6 py-3 text-white"
 							>
 								<PlusIcon className="w-5 h-5" />I Already Have a Wallet - Add Payment Method
 							</Button>
@@ -877,7 +877,7 @@ function ReceivingPaymentsComponent() {
 						<div className="lg:hidden">
 							<Button
 								onClick={() => handleOpenChange('new', true)}
-								className="w-full bg-neutral-800 hover:bg-neutral-700 text-white flex items-center justify-center gap-2 py-3 text-base font-semibold rounded-t-md rounded-b-none border-b border-neutral-600"
+								className="flex justify-center items-center gap-2 bg-neutral-800 hover:bg-neutral-700 py-3 border-neutral-600 border-b rounded-t-md rounded-b-none w-full font-semibold text-white text-base"
 							>
 								<PlusIcon className="w-5 h-5" />
 								Add Payment Method

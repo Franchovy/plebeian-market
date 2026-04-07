@@ -10,7 +10,7 @@ import { configActions, configStore } from './lib/stores/config'
 import { ndkActions, ndkStore } from './lib/stores/ndk'
 import { authActions } from './lib/stores/auth'
 import { walletActions } from './lib/stores/wallet'
-import { UpdateAvailableDialog } from './components/UpdateAvailableDialog'
+import { UpdateAvailableDialog } from './components/dialogs/UpdateAvailableDialog'
 import { configKeys } from './queries/queryKeyFactory'
 
 if (process.env.NODE_ENV !== 'development') {
@@ -25,10 +25,10 @@ const queryClient = createQueryClient()
 
 function DefaultPending() {
 	return (
-		<div className="flex-1 flex items-center justify-center py-20">
+		<div className="flex flex-1 justify-center items-center py-20">
 			<div className="flex flex-col items-center gap-4">
-				<div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-				<p className="text-sm text-muted-foreground">Loading...</p>
+				<div className="border-4 border-primary border-t-transparent rounded-full w-10 h-10 animate-spin" />
+				<p className="text-muted-foreground text-sm">Loading...</p>
 			</div>
 		</div>
 	)
@@ -153,9 +153,9 @@ function App() {
 
 	if (error) {
 		return (
-			<div className="flex justify-center items-center h-screen flex-col gap-2">
+			<div className="flex flex-col justify-center items-center gap-2 h-screen">
 				<div className="text-red-500">Error: {error}</div>
-				<button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={() => window.location.reload()}>
+				<button className="bg-blue-500 px-4 py-2 rounded text-white" onClick={() => window.location.reload()}>
 					Retry
 				</button>
 			</div>

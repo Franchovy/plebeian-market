@@ -1,4 +1,4 @@
-import { ImageUploader } from '@/components/ui/image-uploader/ImageUploader'
+import { ImageUploader } from '@/components/shared/ImageUploader'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { collectionFormStore, collectionFormActions } from '@/lib/stores/collection'
@@ -36,7 +36,7 @@ export function InfoTab() {
 			<div className="space-y-4">
 				<div className="space-y-2">
 					<Label>Header Image</Label>
-					<p className="text-sm text-gray-600">We recommend using images of 1500x500 and under 2mb.</p>
+					<p className="text-gray-600 text-sm">We recommend using images of 1500x500 and under 2mb.</p>
 
 					<ImageUploader
 						src={headerImageUrl || null}
@@ -57,9 +57,9 @@ export function InfoTab() {
 				}}
 			>
 				{(field) => (
-					<div className="grid w-full gap-1.5">
+					<div className="gap-1.5 grid w-full">
 						<Label htmlFor={field.name}>
-							<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Collection Name</span>
+							<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Collection Name</span>
 						</Label>
 						<Input
 							id={field.name}
@@ -76,7 +76,7 @@ export function InfoTab() {
 							data-testid="collection-name-input"
 						/>
 						{field.state.meta.errors?.length > 0 && field.state.meta.isTouched && (
-							<div className="text-red-500 text-sm mt-1">{field.state.meta.errors.join(', ')}</div>
+							<div className="mt-1 text-red-500 text-sm">{field.state.meta.errors.join(', ')}</div>
 						)}
 					</div>
 				)}
@@ -84,7 +84,7 @@ export function InfoTab() {
 
 			<form.Field name="summary">
 				{(field) => (
-					<div className="grid w-full gap-1.5">
+					<div className="gap-1.5 grid w-full">
 						<Label htmlFor={field.name}>Summary (Optional)</Label>
 						<Input
 							id={field.name}
@@ -99,7 +99,7 @@ export function InfoTab() {
 							placeholder="A short summary of your collection"
 							data-testid="collection-summary-input"
 						/>
-						<p className="text-xs text-gray-500">A brief one-line summary displayed in collection listings</p>
+						<p className="text-gray-500 text-xs">A brief one-line summary displayed in collection listings</p>
 					</div>
 				)}
 			</form.Field>
@@ -111,9 +111,9 @@ export function InfoTab() {
 				}}
 			>
 				{(field) => (
-					<div className="grid w-full gap-1.5">
+					<div className="gap-1.5 grid w-full">
 						<Label htmlFor={field.name}>
-							<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Description</span>
+							<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Description</span>
 						</Label>
 						<textarea
 							id={field.name}
@@ -124,13 +124,13 @@ export function InfoTab() {
 								field.handleChange(e.target.value)
 								collectionFormActions.updateValues({ description: e.target.value })
 							}}
-							className="border-2 min-h-24 p-2 rounded-md"
+							className="p-2 border-2 rounded-md min-h-24"
 							placeholder="Bitaxe Miners"
 							required
 							data-testid="collection-description-input"
 						/>
 						{field.state.meta.errors?.length > 0 && field.state.meta.isTouched && (
-							<div className="text-red-500 text-sm mt-1">{field.state.meta.errors.join(', ')}</div>
+							<div className="mt-1 text-red-500 text-sm">{field.state.meta.errors.join(', ')}</div>
 						)}
 					</div>
 				)}

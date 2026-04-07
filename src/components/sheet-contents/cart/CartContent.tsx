@@ -1,5 +1,5 @@
-import CartItem from '@/components/CartItem'
-import { ShippingSelector } from '@/components/ShippingSelector'
+import CartItem from '@/components/features/cart/CartItem'
+import { ShippingSelector } from '@/components/shared/product/ShippingSelector'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import type { RichShippingInfo } from '@/lib/stores/cart'
@@ -10,7 +10,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { useEffect, useMemo, useState } from 'react'
 import { EmptyCartScreen } from './EmptyCartScreen'
-import { UserCard } from '@/components/UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 
 export function CartContent({ className = '' }: { className?: string }) {
 	const {
@@ -99,10 +99,10 @@ export function CartContent({ className = '' }: { className?: string }) {
 	return (
 		<div className={`flex flex-col h-full overflow-hidden px-4 sm:px-6 ${className}`}>
 			{missingShippingCount > 0 && (
-				<div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+				<div className="bg-yellow-50 mb-4 p-4 border-yellow-400 border-l-4">
 					<div className="flex">
 						<div className="ml-3">
-							<p className="text-sm text-yellow-700">
+							<p className="text-yellow-700 text-sm">
 								Please select shipping options for {missingShippingCount} {missingShippingCount === 1 ? 'item' : 'items'} before checkout.
 							</p>
 						</div>
@@ -110,7 +110,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 				</div>
 			)}
 
-			<ScrollArea className="flex-1 overflow-y-auto py-2 min-h-0">
+			<ScrollArea className="flex-1 py-2 min-h-0 overflow-y-auto">
 				<div className="space-y-6" ref={parent}>
 					{Object.entries(productsBySeller)
 						.filter(([sellerPubkey]) => sellerPubkey && sellerPubkey.length > 0 && sellerPubkey !== 'unknown')
@@ -125,7 +125,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 							const optionsForThisSeller = sellerShippingOptions[sellerPubkey] || []
 
 							return (
-								<div key={sellerPubkey} className="p-4 rounded-lg border shadow-md bg-white">
+								<div key={sellerPubkey} className="bg-white shadow-md p-4 border rounded-lg">
 									<div className="mb-3">
 										<UserCard pubkey={sellerPubkey} size="sm" subtitle="nip-05" />
 									</div>
@@ -165,7 +165,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 
 									<div className="flex justify-between mt-1">
 										<p className="text-sm">Shipping:</p>
-										<p className="text-sm font-semibold">{formatSats(data.shippingSats)} sat</p>
+										<p className="font-semibold text-sm">{formatSats(data.shippingSats)} sat</p>
 									</div>
 
 									<div className="flex justify-between mt-1 font-semibold">
@@ -174,10 +174,10 @@ export function CartContent({ className = '' }: { className?: string }) {
 									</div>
 
 									<div className="mt-3">
-										<p className="text-sm font-semibold">Payment Breakdown</p>
+										<p className="font-semibold text-sm">Payment Breakdown</p>
 
-										<div className="h-2 w-full bg-gray-800 mt-1 rounded-full overflow-hidden">
-											<div className="h-full bg-blue-500" style={{ width: `${data.shares.sellerPercentage}%` }} />
+										<div className="bg-gray-800 mt-1 rounded-full w-full h-2 overflow-hidden">
+											<div className="bg-blue-500 h-full" style={{ width: `${data.shares.sellerPercentage}%` }} />
 										</div>
 
 										<div className="flex justify-between mt-1">
@@ -202,7 +202,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 				</div>
 			</ScrollArea>
 
-			<div className="pt-4 pb-6 sm:pb-4 mt-auto flex-shrink-0">
+			<div className="flex-shrink-0 mt-auto pt-4 pb-6 sm:pb-4">
 				<div className="space-y-3 w-full">
 					<div className="space-y-1 mb-2">
 						<div className="flex justify-between">
@@ -213,7 +213,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 							<p className="text-sm">Shipping:</p>
 							<p className="text-sm">{formatSats(totalShippingInSats)} sat</p>
 						</div>
-						<div className="flex justify-between text-lg font-bold">
+						<div className="flex justify-between font-bold text-lg">
 							<p>Total:</p>
 							<p>{formatSats(totalInSats)} sat</p>
 						</div>
@@ -225,7 +225,7 @@ export function CartContent({ className = '' }: { className?: string }) {
 						<div className="flex gap-3">
 							<Button
 								variant="outline"
-								className="flex-1 text-red-500 hover:bg-red-50 hover:text-red-600 border-red-200"
+								className="flex-1 hover:bg-red-50 border-red-200 text-red-500 hover:text-red-600"
 								onClick={() => cartActions.clearForUserIntent()}
 								disabled={totalItems === 0}
 							>

@@ -1,5 +1,5 @@
-import { LoginDialog } from '@/components/auth/LoginDialog'
-import { QRScannerDialog } from '@/components/wallet/QRScannerDialog'
+import { LoginDialog } from '@/components/features/auth/LoginDialog'
+import { QRScannerDialog } from '@/components/dialogs/QRScannerDialog'
 import { V4VSetupDialog } from '@/components/dialogs/V4VSetupDialog'
 import { TermsConditionsDialog } from '@/components/dialogs/TermsConditionsDialog'
 import { NSFWConfirmationDialog } from '@/components/dialogs/NSFWConfirmationDialog'

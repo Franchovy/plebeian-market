@@ -1,7 +1,7 @@
 import { postQueryOptions } from '@/queries/posts'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { PostView } from '@/components/PostView'
+import { PostView } from '@/components/features/posts/PostView'
 
 export const Route = createFileRoute('/posts/$postId')({
 	loader: ({ context: { queryClient }, params: { postId } }) => {
@@ -15,7 +15,7 @@ function RouteComponent() {
 	const { data: post } = useSuspenseQuery(postQueryOptions(postId))
 	return (
 		<div className="p-4">
-			<Link to="/posts" className="text-sm text-blue-500 underline mb-2 block">
+			<Link to="/posts" className="block mb-2 text-blue-500 text-sm underline">
 				Back to posts
 			</Link>
 			<PostView post={post} showJson={true} />

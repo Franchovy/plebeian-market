@@ -1,4 +1,4 @@
-import { CartSummary } from '@/components/CartSummary'
+import { CartSummary } from '@/components/features/cart/CartSummary'
 import { CheckoutProgress } from '@/components/checkout/CheckoutProgress'
 import { OrderFinalizeComponent } from '@/components/checkout/OrderFinalizeComponent'
 import { PaymentContent, type PaymentContentRef } from '@/components/checkout/PaymentContent'
@@ -724,10 +724,10 @@ function RouteComponent() {
 	// Redirect to home if cart is empty (but allow complete step to show summary)
 	if (isCartEmpty && currentStep !== 'complete') {
 		return (
-			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
-				<div className="max-w-md mx-auto text-center">
-					<h1 className="text-2xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
-					<p className="text-gray-600 mb-6">Add some products to your cart before checking out.</p>
+			<div className="flex justify-center items-center bg-gray-50 min-h-screen">
+				<div className="mx-auto max-w-md text-center">
+					<h1 className="mb-4 font-bold text-gray-900 text-2xl">Your cart is empty</h1>
+					<p className="mb-6 text-gray-600">Add some products to your cart before checking out.</p>
 					<Button onClick={goBackToShopping} className="btn-black">
 						Continue Shopping
 					</Button>
@@ -737,9 +737,9 @@ function RouteComponent() {
 	}
 
 	return (
-		<div className="flex-grow flex flex-col">
+		<div className="flex flex-col flex-grow">
 			{/* Fixed Progress Bar */}
-			<div className="sticky top-[8.5rem] lg:top-[5rem] z-20 bg-white border-b border-gray-200">
+			<div className="top-[8.5rem] lg:top-[5rem] z-20 sticky bg-white border-gray-200 border-b">
 				<CheckoutProgress
 					currentStepNumber={currentStepNumber}
 					totalSteps={totalSteps}
@@ -750,13 +750,13 @@ function RouteComponent() {
 			</div>
 
 			{/* Main Content */}
-			<div className="px-4 py-8 flex flex-col lg:flex-row lg:gap-4 w-full lg:h-[calc(100vh-10rem)]">
+			<div className="flex lg:flex-row flex-col lg:gap-4 px-4 py-8 w-full lg:h-[calc(100vh-10rem)]">
 				{/* Mobile Order Summary / Invoices (collapsible) */}
 				<div className="lg:hidden mb-4">
 					<Card>
 						<CardHeader>
 							<CardTitle
-								className="flex items-center justify-between cursor-pointer"
+								className="flex justify-between items-center cursor-pointer"
 								onClick={() => setMobileOrderSummaryOpen(!mobileOrderSummaryOpen)}
 							>
 								<span>{currentStep === 'payment' ? 'Payment Details' : 'Cart Summary'}</span>
@@ -766,30 +766,30 @@ function RouteComponent() {
 						{mobileOrderSummaryOpen && (
 							<CardContent>
 								{currentStep === 'payment' && isGeneratingInvoices ? (
-									<div className="flex items-center justify-center py-8">
+									<div className="flex justify-center items-center py-8">
 										<div className="text-center">
-											<div className="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+											<div className="mx-auto mb-4 border-2 border-pink-500 border-t-transparent rounded-full w-8 h-8 animate-spin" />
 											<p className="text-gray-600">Loading payment details...</p>
 										</div>
 									</div>
 								) : currentStep === 'payment' && invoices.length > 0 ? (
 									<>
 										{/* NWC Status Indicator */}
-										<div className="mb-4 p-3 bg-gray-50 rounded-lg border">
-											<div className="flex items-center justify-between text-sm">
+										<div className="bg-gray-50 mb-4 p-3 border rounded-lg">
+											<div className="flex justify-between items-center text-sm">
 												<span className="font-medium text-gray-700">Wallet Status:</span>
 												<div className="flex items-center gap-2">
 													{nwcEnabled ? (
 														<>
-															<div className="w-2 h-2 bg-green-500 rounded-full" />
-															<span className="text-green-700 font-medium">
+															<div className="bg-green-500 rounded-full w-2 h-2" />
+															<span className="font-medium text-green-700">
 																{wallets.filter((w) => w.nwcUri && parseNwcUri(w.nwcUri)).length} NWC wallet
 																{wallets.filter((w) => w.nwcUri && parseNwcUri(w.nwcUri)).length !== 1 ? 's' : ''} connected
 															</span>
 														</>
 													) : (
 														<>
-															<div className="w-2 h-2 bg-gray-400 rounded-full" />
+															<div className="bg-gray-400 rounded-full w-2 h-2" />
 															<span className="text-gray-600">
 																Fast Payments available with NWC, setup in{' '}
 																<Link to="/dashboard/account/making-payments" className="text-blue-600 hover:underline">
@@ -800,7 +800,7 @@ function RouteComponent() {
 													)}
 												</div>
 											</div>
-											{nwcEnabled && <p className="text-xs text-gray-500 mt-1">Use NWC to action all payments at once</p>}
+											{nwcEnabled && <p className="mt-1 text-gray-500 text-xs">Use NWC to action all payments at once</p>}
 										</div>
 
 										<PaymentSummary invoices={invoices} currentIndex={safeInvoiceIndex} onSelectInvoice={setCurrentInvoiceIndex} />
@@ -819,9 +819,9 @@ function RouteComponent() {
 					</Card>
 				</div>
 				{/* Main Content Area */}
-				<Card className="flex-1 lg:w-1/2 flex flex-col lg:h-full shadow-md lg:order-2">
+				<Card className="flex flex-col flex-1 lg:order-2 shadow-md lg:w-1/2 lg:h-full">
 					<CardHeader>
-						<div className="flex items-center justify-between">
+						<div className="flex justify-between items-center">
 							<CardTitle>
 								{currentStep === 'shipping' ? 'Shipping Address' : currentStep === 'payment' ? 'Invoices' : 'Order Summary'}
 							</CardTitle>
@@ -849,7 +849,7 @@ function RouteComponent() {
 							)}
 						</div>
 					</CardHeader>
-					<CardContent className="p-6 pt-0 flex-1 lg:overflow-y-auto">
+					<CardContent className="flex-1 p-6 pt-0 lg:overflow-y-auto">
 						<div ref={animationParent} className="lg:h-full lg:min-h-full">
 							{currentStep === 'shipping' && (
 								<div className="h-full">
@@ -858,7 +858,7 @@ function RouteComponent() {
 							)}
 
 							{currentStep === 'summary' && (
-								<div className="h-full flex flex-col">
+								<div className="flex flex-col h-full">
 									<div className="flex-1 overflow-y-auto">
 										<OrderFinalizeComponent
 											shippingData={shippingData}
@@ -868,11 +868,11 @@ function RouteComponent() {
 											// Note: onContinueToPayment moved to footer
 										/>
 									</div>
-									<div className="flex-shrink-0 bg-white border-t pt-4">
+									<div className="flex-shrink-0 bg-white pt-4 border-t">
 										<Button onClick={handleContinueToPayment} className="w-full btn-black" disabled={isCreatingOrder}>
 											{isCreatingOrder ? (
 												<>
-													<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+													<Loader2 className="mr-2 w-4 h-4 animate-spin" />
 													Creating Order...
 												</>
 											) : (
@@ -885,9 +885,9 @@ function RouteComponent() {
 
 							{/* Loading State for Invoice Generation */}
 							{currentStep === 'payment' && isGeneratingInvoices && (
-								<div className="h-full flex items-center justify-center">
+								<div className="flex justify-center items-center h-full">
 									<div className="text-center">
-										<div className="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+										<div className="mx-auto mb-4 border-2 border-pink-500 border-t-transparent rounded-full w-8 h-8 animate-spin" />
 										<p className="text-gray-600">Generating Lightning invoices...</p>
 									</div>
 								</div>
@@ -895,11 +895,11 @@ function RouteComponent() {
 
 							{/* Error State - No Invoices Generated */}
 							{currentStep === 'payment' && !isGeneratingInvoices && invoices.length === 0 && (
-								<div className="text-center py-12">
-									<div className="text-gray-600 mb-6">
-										<Zap className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-										<h3 className="text-lg font-medium mb-2">Unable to generate payment invoices</h3>
-										<p className="text-sm text-gray-500 max-w-md mx-auto">
+								<div className="py-12 text-center">
+									<div className="mb-6 text-gray-600">
+										<Zap className="mx-auto mb-4 w-16 h-16 text-gray-400" />
+										<h3 className="mb-2 font-medium text-lg">Unable to generate payment invoices</h3>
+										<p className="mx-auto max-w-md text-gray-500 text-sm">
 											There may be an issue with the seller's Lightning configuration, or the Lightning service may be temporarily
 											unavailable.
 										</p>
@@ -930,8 +930,8 @@ function RouteComponent() {
 									{/* Pay All Button - Only show if NWC is enabled and there are unpaid invoices */}
 									{nwcEnabled && invoices.filter((inv) => inv.status === 'pending' || inv.status === 'failed').length > 1 && (
 										<div className="flex justify-center mb-4">
-											<Button onClick={handlePayAllInvoices} className="btn-product-banner font-medium px-6 py-2" size="lg">
-												<Zap className="w-4 h-4 mr-2" />
+											<Button onClick={handlePayAllInvoices} className="px-6 py-2 font-medium btn-product-banner" size="lg">
+												<Zap className="mr-2 w-4 h-4" />
 												Pay All with NWC ({invoices.filter((inv) => inv.status === 'pending' || inv.status === 'failed').length} invoices)
 											</Button>
 										</div>
@@ -971,36 +971,36 @@ function RouteComponent() {
 				</Card>
 
 				{/* Right Sidebar */}
-				<Card className="hidden lg:flex flex-1 lg:w-1/2 flex-col h-full shadow-md lg:order-1">
+				<Card className="hidden lg:flex flex-col flex-1 lg:order-1 shadow-md lg:w-1/2 h-full">
 					<CardHeader>
 						<CardTitle>{currentStep === 'payment' ? 'Payment Details' : 'Cart Summary'}</CardTitle>
 					</CardHeader>
-					<CardContent className="flex-1 overflow-y-auto pb-0">
+					<CardContent className="flex-1 pb-0 overflow-y-auto">
 						{currentStep === 'payment' && isGeneratingInvoices ? (
-							<div className="flex items-center justify-center h-full">
+							<div className="flex justify-center items-center h-full">
 								<div className="text-center">
-									<div className="animate-spin w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+									<div className="mx-auto mb-4 border-2 border-pink-500 border-t-transparent rounded-full w-8 h-8 animate-spin" />
 									<p className="text-gray-600">Loading payment details...</p>
 								</div>
 							</div>
 						) : currentStep === 'payment' && invoices.length > 0 ? (
 							<>
 								{/* NWC Status Indicator */}
-								<div className="mb-4 p-3 bg-gray-50 rounded-lg border">
-									<div className="flex items-center justify-between text-sm">
+								<div className="bg-gray-50 mb-4 p-3 border rounded-lg">
+									<div className="flex justify-between items-center text-sm">
 										<span className="font-medium text-gray-700">Wallet Status:</span>
 										<div className="flex items-center gap-2">
 											{nwcEnabled ? (
 												<>
-													<div className="w-2 h-2 bg-green-500 rounded-full" />
-													<span className="text-green-700 font-medium">
+													<div className="bg-green-500 rounded-full w-2 h-2" />
+													<span className="font-medium text-green-700">
 														{wallets.filter((w) => w.nwcUri && parseNwcUri(w.nwcUri)).length} NWC wallet
 														{wallets.filter((w) => w.nwcUri && parseNwcUri(w.nwcUri)).length !== 1 ? 's' : ''} connected
 													</span>
 												</>
 											) : (
 												<>
-													<div className="w-2 h-2 bg-gray-400 rounded-full" />
+													<div className="bg-gray-400 rounded-full w-2 h-2" />
 													<span className="text-gray-600">
 														Fast Payments available with NWC, setup in{' '}
 														<Link to="/dashboard/account/making-payments" className="text-blue-600 hover:underline">
@@ -1011,7 +1011,7 @@ function RouteComponent() {
 											)}
 										</div>
 									</div>
-									{nwcEnabled && <p className="text-xs text-gray-500 mt-1">Fast payments available • Configure more wallets in settings</p>}
+									{nwcEnabled && <p className="mt-1 text-gray-500 text-xs">Fast payments available • Configure more wallets in settings</p>}
 								</div>
 
 								<div className="pb-6">

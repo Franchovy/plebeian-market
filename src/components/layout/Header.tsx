@@ -1,10 +1,10 @@
-import { CurrencyDropdown } from '@/components/CurrencyDropdown'
+import { CurrencyDropdown } from '@/components/features/header/CurrencyDropdown'
 import { MobileMenu } from '@/components/layout/MobileMenu'
-import { ProductSearch } from '@/components/ProductSearch'
+import { ProductSearch } from '@/components/features/header/ProductSearch'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Nip60Wallet } from '@/feature/wallet/components/Nip60Wallet'
+import { Nip60Wallet } from '@/components/features/wallet/Nip60Wallet'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { authActions, authStore } from '@/lib/stores/auth'
 import { notificationStore } from '@/lib/stores/notifications'
@@ -15,17 +15,17 @@ import { useStore } from '@tanstack/react-store'
 import { Loader2, LogOut, Menu, Wallet, X } from 'lucide-react'
 import { forwardRef, useEffect, useState } from 'react'
 import { cartStore } from '@/lib/stores/cart'
-import { AvatarUser } from '@/components/AvatarUser'
+import { AvatarUser } from '@/components/shared/user/AvatarUser'
 import { cn } from '@/lib/utils'
 import { useProfile } from '@/queries/profiles'
-import { BugReportModal } from '../BugReportModal'
+import { BugReportModal } from '@/components/features/bug-report/BugReportModal'
 
 const LoginButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => {
 	return (
 		<Button
 			variant="primary"
-			className="p-2 relative hover:[&>span]:text-secondary"
-			icon={<span className="i-account w-6 h-6" />}
+			className="relative p-2 hover:[&>span]:text-secondary"
+			icon={<span className="w-6 h-6 i-account" />}
 			data-testid="login-button"
 			ref={ref}
 			tooltip="Log In"
@@ -39,7 +39,7 @@ const LogoutButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HT
 	return (
 		<Button
 			variant="primary"
-			className="p-2 relative hover:[&>svg]:text-secondary"
+			className="relative p-2 hover:[&>svg]:text-secondary"
 			data-testid="logout-button"
 			ref={ref}
 			tooltip="Log Out"
@@ -71,7 +71,7 @@ const ProfileButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<H
 	if (isPending && fetchStatus === 'fetching') {
 		return (
 			<Button variant="ghost" size={'icon'} disabled>
-				<Loader2 className={cn('h-4 w-4 animate-spin')} />
+				<Loader2 className={cn('w-4 h-4 animate-spin')} />
 			</Button>
 		)
 	}
@@ -82,7 +82,7 @@ const ProfileButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<H
 			variant={authState.isAuthenticated ? 'primary' : 'outline'}
 			size={'icon'}
 			className={cn(
-				'p-2 w-full relative',
+				'relative p-2 w-full',
 				!authState.isAuthenticated && 'text-muted-foreground hover:text-foreground',
 				isOnOwnProfile && 'bg-secondary text-black hover:bg-secondary hover:text-black',
 			)}
@@ -96,9 +96,9 @@ const ProfileButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<H
 			) : (
 				<>
 					{authState.isAuthenticated ? (
-						<span className={cn('i-account w-6 h-6', isOnOwnProfile && 'text-black')} />
+						<span className={cn('w-6 h-6 i-account', isOnOwnProfile && 'text-black')} />
 					) : (
-						<span className="i-account w-6 h-6" />
+						<span className="w-6 h-6 i-account" />
 					)}
 				</>
 			)}
@@ -118,10 +118,10 @@ const CartButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTML
 	}
 
 	return (
-		<Button variant="primary" tooltip="View cart" className="p-2 relative hover:text-secondary" ref={ref} {...props} onClick={handleClick}>
-			<span className="i-basket w-6 h-6" />
+		<Button variant="primary" tooltip="View cart" className="relative p-2 hover:text-secondary" ref={ref} {...props} onClick={handleClick}>
+			<span className="w-6 h-6 i-basket" />
 			{totalItems > 0 && (
-				<span className="absolute -top-2.5 -right-2.5 bg-secondary text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+				<span className="-top-2.5 -right-2.5 absolute flex justify-center items-center bg-secondary rounded-full w-5 h-5 font-bold text-black text-xs">
 					{totalItems > 99 ? '99+' : totalItems}
 				</span>
 			)}
@@ -143,14 +143,14 @@ const DashboardButton = forwardRef<HTMLButtonElement, DashboardButtonProps>((pro
 				className={`p-2 relative hover:[&>span]:text-secondary ${
 					location.pathname.startsWith('/dashboard') ? 'bg-secondary text-black [&>span]:text-black' : ''
 				}`}
-				icon={<span className="i-dashboard w-6 h-6" />}
+				icon={<span className="w-6 h-6 i-dashboard" />}
 				data-testid="dashboard-button"
 				tooltip="Dashboard"
 				ref={ref}
 				{...props}
 			/>
 			{totalNotifications > 0 && (
-				<span className="absolute -top-2 -right-2 bg-secondary text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+				<span className="-top-2 -right-2 absolute flex justify-center items-center bg-secondary rounded-full w-5 h-5 font-bold text-black text-xs">
 					{totalNotifications > 99 ? '99+' : totalNotifications}
 				</span>
 			)}
@@ -162,12 +162,12 @@ function WalletButton() {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="primary" tooltip="Wallet" className="p-2 relative hover:[&>svg]:text-secondary" data-testid="wallet-button">
+				<Button variant="primary" tooltip="Wallet" className="relative p-2 hover:[&>svg]:text-secondary" data-testid="wallet-button">
 					<Wallet className="w-6 h-6" />
 				</Button>
 			</PopoverTrigger>
 
-			<PopoverContent className="md:w-96 w-[calc(100vw-2rem)] bg-primary rounded-lg" align="end">
+			<PopoverContent className="bg-primary rounded-lg w-[calc(100vw-2rem)] md:w-96" align="end">
 				<Nip60Wallet />
 			</PopoverContent>
 		</Popover>
@@ -193,12 +193,12 @@ export function BugReportButton({ className }: BugReportButtonProps) {
 				onClick={handleBugReport}
 				tooltip="Report a bug"
 				className={cn(
-					'fixed bottom-16 right-16 z-50 h-10 w-10 px-4 py-2 rounded-full bg-black text-white hover:bg-black hover:text-secondary shadow-lg transition-colors',
+					'right-16 bottom-16 z-50 fixed bg-black hover:bg-black shadow-lg px-4 py-2 rounded-full w-10 h-10 text-white hover:text-secondary transition-colors',
 					className,
 				)}
 				aria-label="Report a bug"
 			>
-				<span className="i-bug w-6 h-6 px-2 py-0 hover:bg-black hover:text-secondary" />
+				<span className="hover:bg-black px-2 py-0 w-6 h-6 hover:text-secondary i-bug" />
 			</Button>
 			<BugReportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onReopen={() => setIsModalOpen(true)} />
 		</>
@@ -295,14 +295,14 @@ export function Header() {
 			className={`sticky top-0 z-50 text-white px-4 ${isNostrPage ? 'bg-black' : getHeaderBackground()}`}
 			style={isNostrPage ? {} : (getHeaderStyle() as React.CSSProperties)}
 		>
-			<div className="container flex h-full max-w-full items-center justify-between py-4">
+			<div className="flex justify-between items-center py-4 max-w-full h-full container">
 				<section className="inline-flex items-center">
 					<Link to="/" data-testid="home-link">
 						{config?.appSettings?.picture && (
-							<img src={config.appSettings.picture} alt={config.appSettings.displayName} className="w-16 px-2" />
+							<img src={config.appSettings.picture} alt={config.appSettings.displayName} className="px-2 w-16" />
 						)}
 					</Link>
-					<div className="hidden sm:flex mx-8 gap-8">
+					<div className="hidden sm:flex gap-8 mx-8">
 						<Link
 							to="/products"
 							className="hover:text-secondary"
@@ -341,7 +341,7 @@ export function Header() {
 					<div className="flex gap-2">
 						{/* Bug Report Button - Only when authenticated */}
 						{isAuthenticated && (
-							<BugReportButton className="!static !w-auto !rounded-lg !shadow-none !bg-primary-border !border-2 !border-transparent hover:!bg-black hover:!border-primary-border-hover p-2 relative hover:[&>span]:text-secondary" />
+							<BugReportButton className="!static relative hover:!bg-black !shadow-none p-2 !bg-primary-border !border-2 !border-transparent hover:!border-primary-border-hover !rounded-lg !w-auto hover:[&>span]:text-secondary" />
 						)}
 
 						{/* Currency Selector - Desktop Only */}
@@ -358,8 +358,8 @@ export function Header() {
 
 						{/* Profile Button/Avatar, or Log-In Button if not authenticated */}
 						{isAuthenticating ? (
-							<Button variant="primary" className="p-2 relative" data-testid="auth-loading">
-								<Loader2 className="h-4 w-4 animate-spin" />
+							<Button variant="primary" className="relative p-2" data-testid="auth-loading">
+								<Loader2 className="w-4 h-4 animate-spin" />
 							</Button>
 						) : isAuthenticated ? (
 							<ProfileButton />
@@ -374,7 +374,7 @@ export function Header() {
 						{isMobile && (
 							<Button
 								variant="primary"
-								className="p-2 relative hover:bg-secondary/20"
+								className="relative hover:bg-secondary/20 p-2"
 								onClick={handleMobileMenuClick}
 								data-testid="mobile-menu-button"
 							>

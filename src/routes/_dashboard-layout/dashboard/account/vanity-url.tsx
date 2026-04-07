@@ -13,7 +13,7 @@ import { VANITY_PRICING } from '@/server/VanityManager'
 import { AlertCircle, CheckCircle2, Clock, ExternalLink, Copy, Zap, RefreshCw } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { LightningPaymentProcessor } from '@/components/lightning/LightningPaymentProcessor'
+import { LightningPaymentProcessor } from '@/components/features/lightning/LightningPaymentProcessor'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { purchaseVanityForPubkey } from '@/lib/zapPurchase'
 
@@ -200,7 +200,7 @@ function VanityUrlComponent() {
 	if (!pubkey) {
 		return (
 			<div className="space-y-6 p-4 lg:p-8">
-				<h1 className="text-2xl font-bold">Vanity URL</h1>
+				<h1 className="font-bold text-2xl">Vanity URL</h1>
 				<p className="text-muted-foreground">Please connect your Nostr account to manage your vanity URL.</p>
 			</div>
 		)
@@ -208,14 +208,14 @@ function VanityUrlComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
-				<h1 className="text-2xl font-bold">Vanity URL</h1>
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
+				<h1 className="font-bold text-2xl">Vanity URL</h1>
 			</div>
 
 			<div className="space-y-6 p-4 lg:p-8">
 				{isLoading ? (
-					<div className="flex items-center justify-center p-8">
-						<div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+					<div className="flex justify-center items-center p-8">
+						<div className="border-4 border-primary border-t-transparent rounded-full w-8 h-8 animate-spin"></div>
 					</div>
 				) : (
 					<>
@@ -224,29 +224,29 @@ function VanityUrlComponent() {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
-										<CheckCircle2 className="h-5 w-5 text-green-500" />
+										<CheckCircle2 className="w-5 h-5 text-green-500" />
 										Your Vanity URL
 									</CardTitle>
 									<CardDescription>Your custom vanity URL is active and ready to share</CardDescription>
 								</CardHeader>
 								<CardContent className="space-y-4">
-									<div className="flex items-center gap-2 p-4 bg-muted rounded-lg">
-										<code className="text-lg font-mono flex-1">
+									<div className="flex items-center gap-2 bg-muted p-4 rounded-lg">
+										<code className="flex-1 font-mono text-lg">
 											{window.location.origin}/{currentVanity.vanityName}
 										</code>
 										<Button variant="ghost" size="icon" onClick={copyVanityUrl}>
-											<Copy className="h-4 w-4" />
+											<Copy className="w-4 h-4" />
 										</Button>
 										<Button variant="ghost" size="icon" asChild>
 											<a href={`/${currentVanity.vanityName}`} target="_blank" rel="noopener noreferrer">
-												<ExternalLink className="h-4 w-4" />
+												<ExternalLink className="w-4 h-4" />
 											</a>
 										</Button>
 									</div>
 
 									<div className="flex items-center gap-2">
-										<Clock className="h-4 w-4 text-muted-foreground" />
-										<span className="text-sm text-muted-foreground">Expires: {formatExpiration(currentVanity.validUntil).date}</span>
+										<Clock className="w-4 h-4 text-muted-foreground" />
+										<span className="text-muted-foreground text-sm">Expires: {formatExpiration(currentVanity.validUntil).date}</span>
 										{formatExpiration(currentVanity.validUntil).isExpiringSoon && (
 											<Badge variant="destructive" className="text-xs">
 												{formatExpiration(currentVanity.validUntil).timeLeft} left
@@ -269,7 +269,7 @@ function VanityUrlComponent() {
 							<Card>
 								<CardHeader>
 									<CardTitle className="flex items-center gap-2">
-										<Clock className="h-5 w-5 text-orange-500" />
+										<Clock className="w-5 h-5 text-orange-500" />
 										Expired Vanity URLs
 									</CardTitle>
 									<CardDescription>These vanity URLs have expired. Renew them to keep your custom links.</CardDescription>
@@ -278,11 +278,11 @@ function VanityUrlComponent() {
 									{expiredVanities.map((expired) => (
 										<div
 											key={expired.vanityName}
-											className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-orange-200"
+											className="flex justify-between items-center bg-muted/50 p-3 border border-orange-200 rounded-lg"
 										>
 											<div className="flex items-center gap-3">
 												<code className="font-mono text-sm">/{expired.vanityName}</code>
-												<Badge variant="outline" className="text-xs text-orange-600 border-orange-300">
+												<Badge variant="outline" className="border-orange-300 text-orange-600 text-xs">
 													Expired {new Date(expired.validUntil * 1000).toLocaleDateString()}
 												</Badge>
 											</div>
@@ -296,7 +296,7 @@ function VanityUrlComponent() {
 													document.getElementById('vanity-register-section')?.scrollIntoView({ behavior: 'smooth' })
 												}}
 											>
-												<RefreshCw className="h-4 w-4" />
+												<RefreshCw className="w-4 h-4" />
 												Renew
 											</Button>
 										</div>
@@ -334,8 +334,8 @@ function VanityUrlComponent() {
 														: 'text-muted-foreground'
 											}`}
 										>
-											{validationState.isAvailable === true && <CheckCircle2 className="h-4 w-4" />}
-											{validationState.isAvailable === false && <AlertCircle className="h-4 w-4" />}
+											{validationState.isAvailable === true && <CheckCircle2 className="w-4 h-4" />}
+											{validationState.isAvailable === false && <AlertCircle className="w-4 h-4" />}
 											{isChecking ? 'Checking availability…' : validationState.message}
 										</p>
 									)}
@@ -353,18 +353,18 @@ function VanityUrlComponent() {
 												className={`w-full flex items-center gap-4 p-4 border rounded-lg transition-all hover:border-yellow-500 hover:bg-yellow-500/5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer`}
 												onClick={() => handleZap(tier)}
 											>
-												<div className="flex items-center justify-center w-10 h-10 rounded-full bg-yellow-500/10">
-													<Zap className="h-5 w-5 text-yellow-500" />
+												<div className="flex justify-center items-center bg-yellow-500/10 rounded-full w-10 h-10">
+													<Zap className="w-5 h-5 text-yellow-500" />
 												</div>
 												<div className="flex-1 text-left">
 													<p className="font-semibold">{tier.label}</p>
-													<p className="text-sm text-muted-foreground">
+													<p className="text-muted-foreground text-sm">
 														{tier.seconds ? `${tier.seconds} seconds` : `${tier.days} days`} validity
 													</p>
 												</div>
 												<div className="text-right">
-													<p className="font-bold text-lg text-yellow-500">{tier.sats.toLocaleString()}</p>
-													<p className="text-xs text-muted-foreground">sats</p>
+													<p className="font-bold text-yellow-500 text-lg">{tier.sats.toLocaleString()}</p>
+													<p className="text-muted-foreground text-xs">sats</p>
 												</div>
 											</button>
 										))}

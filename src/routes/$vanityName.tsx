@@ -1,4 +1,4 @@
-import { ProfilePage } from '@/components/pages/ProfilePage'
+import { ProfilePage } from '@/components/features/profile/ProfilePage'
 import { vanityActions, vanityStore } from '@/lib/stores/vanity'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useMemo } from 'react'
@@ -28,9 +28,9 @@ function VanityRouteComponent() {
 	// Loading state while store syncs
 	if (!isLoaded) {
 		return (
-			<div className="flex items-center justify-center min-h-screen">
+			<div className="flex justify-center items-center min-h-screen">
 				<div className="text-center">
-					<div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
+					<div className="mx-auto mb-4 border-4 border-primary border-t-transparent rounded-full w-8 h-8 animate-spin" />
 					<p className="text-muted-foreground">Loading...</p>
 				</div>
 			</div>
@@ -44,15 +44,15 @@ function VanityRouteComponent() {
 
 	// Vanity URL not found - show 404-like message
 	return (
-		<div className="flex items-center justify-center min-h-screen">
-			<div className="text-center max-w-md mx-auto p-8">
-				<h1 className="text-4xl font-bold mb-4">Page Not Found</h1>
-				<p className="text-muted-foreground mb-6">
+		<div className="flex justify-center items-center min-h-screen">
+			<div className="mx-auto p-8 max-w-md text-center">
+				<h1 className="mb-4 font-bold text-4xl">Page Not Found</h1>
+				<p className="mb-6 text-muted-foreground">
 					The vanity URL <span className="font-mono text-primary">/{vanityName}</span> is not registered or has expired.
 				</p>
 				<button
 					onClick={() => navigate({ to: '/' })}
-					className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+					className="bg-primary hover:opacity-90 px-6 py-3 rounded-lg text-primary-foreground transition-opacity"
 				>
 					Go Home
 				</button>

@@ -8,7 +8,7 @@ import { useStore } from '@tanstack/react-store'
 import { useState } from 'react'
 import { nip15ProductsQueryOptions, migratedEventsQueryOptions } from '@/queries/migration'
 import type { NDKEvent } from '@nostr-dev-kit/ndk'
-import { MigrationForm } from '@/components/migration/MigrationForm'
+import { MigrationForm } from '@/components/features/migration/MigrationForm'
 import { ArrowRightLeft } from 'lucide-react'
 
 export const Route = createFileRoute('/_dashboard-layout/dashboard/products/migration-tool')({
@@ -56,18 +56,18 @@ function MigrationToolComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 				<div className="flex items-center gap-3">
 					<ArrowRightLeft className="w-8 h-8 text-muted-foreground" />
 					<div>
-						<h1 className="text-2xl font-bold">Migration Tool</h1>
+						<h1 className="font-bold text-2xl">Migration Tool</h1>
 						<p className="text-muted-foreground text-sm">If you have NIP-15 listings (legacy format), you can to update them here.</p>
 					</div>
 				</div>
 			</div>
 			<div className="space-y-4 p-4 lg:p-6">
 				{isLoadingNip15 ? (
-					<div className="p-6 text-center text-gray-500">Loading products...</div>
+					<div className="p-6 text-gray-500 text-center">Loading products...</div>
 				) : unmigratedProducts.length === 0 ? (
 					<Card>
 						<CardHeader>
@@ -81,7 +81,7 @@ function MigrationToolComponent() {
 					</Card>
 				) : (
 					<div className="space-y-4">
-						<div className="text-sm text-gray-600">
+						<div className="text-gray-600 text-sm">
 							Found {unmigratedProducts.length} product{unmigratedProducts.length !== 1 ? 's' : ''} to migrate
 						</div>
 						<div className="space-y-2">
@@ -90,14 +90,14 @@ function MigrationToolComponent() {
 								return (
 									<Card
 										key={event.id}
-										className="cursor-pointer hover:bg-gray-50 transition-colors"
+										className="hover:bg-gray-50 transition-colors cursor-pointer"
 										onClick={() => setSelectedEvent(event)}
 									>
 										<CardContent className="p-4">
-											<div className="flex items-start justify-between">
+											<div className="flex justify-between items-start">
 												<div className="flex-1">
-													<h3 className="font-semibold text-lg mb-1">{productData.name}</h3>
-													<p className="text-sm text-gray-600 mb-2 line-clamp-2">{productData.description || 'No description'}</p>
+													<h3 className="mb-1 font-semibold text-lg">{productData.name}</h3>
+													<p className="mb-2 text-gray-600 text-sm line-clamp-2">{productData.description || 'No description'}</p>
 													<div className="flex gap-4 text-sm">
 														<span>
 															<strong>Price:</strong> {productData.price} {productData.currency}

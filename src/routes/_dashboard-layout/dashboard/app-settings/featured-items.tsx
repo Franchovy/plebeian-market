@@ -1,5 +1,5 @@
-import { CollectionDisplayComponent } from '@/components/CollectionDisplayComponent'
-import { ProductDisplayComponent } from '@/components/ProductDisplayComponent'
+import { CollectionDisplayComponent } from '@/components/features/dashboard/CollectionDisplayComponent'
+import { ProductDisplayComponent } from '@/components/features/dashboard/ProductDisplayComponent'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -439,10 +439,10 @@ function FeaturedItemsComponent() {
 		return (
 			<div className="space-y-6 p-6">
 				<div className="animate-pulse">
-					<div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+					<div className="bg-gray-200 mb-4 rounded w-1/4 h-8"></div>
 					<div className="space-y-3">
-						<div className="h-4 bg-gray-200 rounded w-1/2"></div>
-						<div className="h-4 bg-gray-200 rounded w-1/3"></div>
+						<div className="bg-gray-200 rounded w-1/2 h-4"></div>
+						<div className="bg-gray-200 rounded w-1/3 h-4"></div>
 					</div>
 				</div>
 			</div>
@@ -452,11 +452,11 @@ function FeaturedItemsComponent() {
 	if (!amIAdmin && !amIEditor) {
 		return (
 			<div className="space-y-6 p-6">
-				<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+				<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 					<div className="flex items-center gap-3">
 						<Star className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Featured Items</h1>
+							<h1 className="font-bold text-2xl">Featured Items</h1>
 							<p className="text-muted-foreground text-sm">Manage featured items</p>
 						</div>
 					</div>
@@ -465,8 +465,8 @@ function FeaturedItemsComponent() {
 				<Card>
 					<CardContent className="p-6">
 						<div className="text-center">
-							<Star className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-							<h3 className="text-lg font-medium mb-2">Access Denied</h3>
+							<Star className="mx-auto mb-4 w-16 h-16 text-gray-400" />
+							<h3 className="mb-2 font-medium text-lg">Access Denied</h3>
 							<p className="text-gray-600">You don't have permission to manage featured items.</p>
 						</div>
 					</CardContent>
@@ -477,11 +477,11 @@ function FeaturedItemsComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 				<div className="flex items-center gap-3">
 					<Star className="w-6 h-6 text-muted-foreground" />
 					<div>
-						<h1 className="text-2xl font-bold">Featured Items</h1>
+						<h1 className="font-bold text-2xl">Featured Items</h1>
 						<p className="text-muted-foreground text-sm">Manage featured products, collections, and users</p>
 					</div>
 				</div>
@@ -491,31 +491,31 @@ function FeaturedItemsComponent() {
 					<div className="flex items-center gap-3">
 						<Star className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Featured Items</h1>
+							<h1 className="font-bold text-2xl">Featured Items</h1>
 							<p className="text-muted-foreground text-sm">Manage featured products, collections, and users</p>
 						</div>
 					</div>
 				</div>
 
 				<Tabs defaultValue="products" className="w-full">
-					<TabsList className="w-full rounded-none bg-transparent h-auto p-0 flex">
+					<TabsList className="flex bg-transparent p-0 rounded-none w-full h-auto">
 						<TabsTrigger
 							value="products"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<Package className="w-4 h-4" />
 							Products
 						</TabsTrigger>
 						<TabsTrigger
 							value="collections"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<FolderOpen className="w-4 h-4" />
 							Collections
 						</TabsTrigger>
 						<TabsTrigger
 							value="users"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<Users className="w-4 h-4" />
 							Users
@@ -537,8 +537,8 @@ function FeaturedItemsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{!featuredProducts?.featuredProducts || featuredProducts.featuredProducts.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<Package className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<Package className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No featured products yet</p>
 									</div>
 								) : (
@@ -587,7 +587,7 @@ function FeaturedItemsComponent() {
 											disabled={isAddingProduct || addProductMutation.isPending || !newProductInput.trim()}
 										>
 											{isAddingProduct || addProductMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<Plus className="w-4 h-4" />
 											)}
@@ -595,7 +595,7 @@ function FeaturedItemsComponent() {
 										</Button>
 									</div>
 								</div>
-								<div className="text-xs text-gray-500">
+								<div className="text-gray-500 text-xs">
 									Note: Products will be displayed in the order they appear in the list. Use the up/down buttons to reorder.
 								</div>
 							</CardContent>
@@ -617,8 +617,8 @@ function FeaturedItemsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{!featuredCollections?.featuredCollections || featuredCollections.featuredCollections.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<FolderOpen className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No featured collections yet</p>
 									</div>
 								) : (
@@ -667,7 +667,7 @@ function FeaturedItemsComponent() {
 											disabled={isAddingCollection || addCollectionMutation.isPending || !newCollectionInput.trim()}
 										>
 											{isAddingCollection || addCollectionMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<Plus className="w-4 h-4" />
 											)}
@@ -675,7 +675,7 @@ function FeaturedItemsComponent() {
 										</Button>
 									</div>
 								</div>
-								<div className="text-xs text-gray-500">
+								<div className="text-gray-500 text-xs">
 									Note: Collections will be displayed in the order they appear in the list. Use the up/down buttons to reorder.
 								</div>
 							</CardContent>
@@ -697,8 +697,8 @@ function FeaturedItemsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{!featuredUsers?.featuredUsers || featuredUsers.featuredUsers.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<Users className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<Users className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No featured users yet</p>
 									</div>
 								) : (
@@ -744,7 +744,7 @@ function FeaturedItemsComponent() {
 										/>
 										<Button onClick={handleAddUser} disabled={isAddingUser || addUserMutation.isPending || !newUserInput.trim()}>
 											{isAddingUser || addUserMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<Plus className="w-4 h-4" />
 											)}
@@ -752,7 +752,7 @@ function FeaturedItemsComponent() {
 										</Button>
 									</div>
 								</div>
-								<div className="text-xs text-gray-500">
+								<div className="text-gray-500 text-xs">
 									Note: Users will be displayed in the order they appear in the list. Use the up/down buttons to reorder.
 								</div>
 							</CardContent>
@@ -770,7 +770,7 @@ function FeaturedItemsComponent() {
 							{amIAdmin ? <Star className="w-5 h-5 text-blue-600" /> : <Star className="w-5 h-5 text-purple-600" />}
 							<div>
 								<div className="font-medium">{amIAdmin ? 'Administrator' : 'Editor'}</div>
-								<div className="text-sm text-gray-600">
+								<div className="text-gray-600 text-sm">
 									{amIAdmin
 										? 'You have full control over the marketplace and can manage featured items.'
 										: 'You can manage featured items but have limited administrative access.'}

@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 import { ndkActions } from '@/lib/stores/ndk'
 import { type NDKUserProfile } from '@nostr-dev-kit/ndk'
-import { ImageUploader } from '@/components/ui/image-uploader/ImageUploader'
+import { ImageUploader } from '@/components/shared/ImageUploader'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -163,7 +163,7 @@ function ProfileComponent() {
 	if (!pubkey) {
 		return (
 			<div className="space-y-6">
-				<h1 className="text-2xl font-bold">Profile</h1>
+				<h1 className="font-bold text-2xl">Profile</h1>
 				<p>Please connect your Nostr account to manage your profile.</p>
 			</div>
 		)
@@ -171,13 +171,13 @@ function ProfileComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
-				<h1 className="text-2xl font-bold">Profile</h1>
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
+				<h1 className="font-bold text-2xl">Profile</h1>
 				<Button
 					type="button"
 					disabled={isLoading || !canSave}
 					onClick={handleSave}
-					className="btn-black flex items-center gap-2 px-4 py-2 text-sm font-semibold"
+					className="flex items-center gap-2 px-4 py-2 font-semibold text-sm btn-black"
 					data-testid="profile-save-button-desktop"
 				>
 					{isLoading ? 'Saving...' : canSave ? (Object.keys(originalProfile).length === 0 ? 'Create Profile' : 'Save Changes') : 'Saved'}
@@ -185,15 +185,15 @@ function ProfileComponent() {
 			</div>
 			<div className="space-y-6 p-4 lg:p-8">
 				{isLoadingProfile ? (
-					<div className="flex items-center justify-center p-8">
-						<div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+					<div className="flex justify-center items-center p-8">
+						<div className="border-4 border-primary border-t-transparent rounded-full w-8 h-8 animate-spin"></div>
 					</div>
 				) : (
 					<div className="space-y-6">
 						<div className="space-y-4">
 							<div className="space-y-2">
 								<Label htmlFor="headerImage">
-									Header Image <span className="text-muted-foreground font-normal">(optional)</span>
+									Header Image <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<ImageUploader
 									src={profile.banner || null}
@@ -209,7 +209,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="profileImage">
-									Profile Image <span className="text-muted-foreground font-normal">(optional)</span>
+									Profile Image <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<ImageUploader
 									src={profile.image || null}
@@ -225,7 +225,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="name">
-									<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Name</span>
+									<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Name</span>
 								</Label>
 								<Input
 									id="name"
@@ -239,7 +239,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="displayName">
-									<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Display Name</span>
+									<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Display Name</span>
 								</Label>
 								<Input
 									id="displayName"
@@ -253,7 +253,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="about">
-									About <span className="text-muted-foreground font-normal">(optional)</span>
+									About <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<Textarea
 									id="about"
@@ -267,7 +267,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="nip05">
-									Nostr Address (NIP05) <span className="text-muted-foreground font-normal">(optional)</span>
+									Nostr Address (NIP05) <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<Input
 									id="nip05"
@@ -280,22 +280,22 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="lud16">
-									Lightning Address (LUD16) <span className="text-muted-foreground font-normal">(optional)</span>
-									<div className="text-xs text-muted-foreground mt-1 font-normal">
+									Lightning Address (LUD16) <span className="font-normal text-muted-foreground">(optional)</span>
+									<div className="mt-1 font-normal text-muted-foreground text-xs">
 										Recommended wallets: (
-										<a href="https://coinos.io" target="_blank" rel="noopener noreferrer" className="underline hover:text-pink-500">
+										<a href="https://coinos.io" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 underline">
 											CoinOS
 										</a>
 										,{' '}
-										<a href="https://primal.net" target="_blank" rel="noopener noreferrer" className="underline hover:text-pink-500">
+										<a href="https://primal.net" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 underline">
 											Primal
 										</a>
 										,{' '}
-										<a href="https://lnbits.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-pink-500">
+										<a href="https://lnbits.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 underline">
 											LNBits
 										</a>
 										,{' '}
-										<a href="https://minibits.cash" target="_blank" rel="noopener noreferrer" className="underline hover:text-pink-500">
+										<a href="https://minibits.cash" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 underline">
 											Minibits
 										</a>
 										,{' '}
@@ -303,12 +303,12 @@ function ProfileComponent() {
 											href="https://app.mutinywallet.com/setup"
 											target="_blank"
 											rel="noopener noreferrer"
-											className="underline hover:text-pink-500"
+											className="hover:text-pink-500 underline"
 										>
 											Mutiny
 										</a>
 										,{' '}
-										<a href="https://getalby.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-pink-500">
+										<a href="https://getalby.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 underline">
 											Alby
 										</a>
 										)
@@ -325,7 +325,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="lud06">
-									LNURL (LUD06) <span className="text-muted-foreground font-normal">(optional)</span>
+									LNURL (LUD06) <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<Input
 									id="lud06"
@@ -338,7 +338,7 @@ function ProfileComponent() {
 
 							<div className="space-y-2">
 								<Label htmlFor="website">
-									Website <span className="text-muted-foreground font-normal">(optional)</span>
+									Website <span className="font-normal text-muted-foreground">(optional)</span>
 								</Label>
 								<Input
 									id="website"
@@ -352,7 +352,7 @@ function ProfileComponent() {
 							<Button
 								type="button"
 								disabled={isLoading || !canSave}
-								className="btn-black w-full lg:hidden"
+								className="lg:hidden w-full btn-black"
 								onClick={handleSave}
 								data-testid="profile-save-button"
 							>

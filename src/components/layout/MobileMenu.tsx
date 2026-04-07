@@ -1,4 +1,4 @@
-import { CurrencyDropdown } from '@/components/CurrencyDropdown'
+import { CurrencyDropdown } from '@/components/features/header/CurrencyDropdown'
 import { Pattern } from '@/components/pattern'
 import { authActions, authStore } from '@/lib/stores/auth'
 import { uiActions, uiStore } from '@/lib/stores/ui'
@@ -61,12 +61,12 @@ export function MobileMenu() {
 	return (
 		<div ref={animationParent}>
 			{mobileMenuOpen && (
-				<div className={cn('fixed top-16 left-0 right-0 bottom-0 z-40 bg-black/90')} onClick={() => uiActions.closeMobileMenu()}>
+				<div className={cn('top-16 right-0 bottom-0 left-0 z-40 fixed bg-black/90')} onClick={() => uiActions.closeMobileMenu()}>
 					{/* Dots Pattern Overlay */}
 					<Pattern pattern="dots" className="opacity-30" />
 
 					{/* Menu Content */}
-					<div className="flex flex-col items-center justify-center h-full relative z-10" onClick={(e) => e.stopPropagation()}>
+					<div className="z-10 relative flex flex-col justify-center items-center h-full" onClick={(e) => e.stopPropagation()}>
 						<nav className="flex flex-col items-stretch gap-4 w-full max-w-sm">
 							{menuItems.map((item) => {
 								const isActive = matchRoute({ to: item.to, fuzzy: item.to !== '/' })
@@ -75,7 +75,7 @@ export function MobileMenu() {
 										key={item.to}
 										to={item.to}
 										className={cn(
-											'py-3 px-6 rounded-lg text-center text-lg font-normal uppercase tracking-wider transition-colors',
+											'px-6 py-3 rounded-lg font-normal text-lg text-center uppercase tracking-wider transition-colors',
 											isActive ? 'bg-black text-secondary' : 'text-white hover:text-secondary',
 										)}
 										onClick={handleLinkClick}
@@ -85,10 +85,10 @@ export function MobileMenu() {
 								)
 							})}
 							{isAuthenticated && (
-								<div className="py-3 px-8">
+								<div className="px-8 py-3">
 									<button
 										onClick={handleLogout}
-										className="w-full text-center text-white text-lg font-normal uppercase tracking-wider hover:text-secondary transition-colors"
+										className="w-full font-normal text-white hover:text-secondary text-lg text-center uppercase tracking-wider transition-colors"
 									>
 										Log out
 									</button>
@@ -96,7 +96,7 @@ export function MobileMenu() {
 							)}
 
 							{/* Currency Dropdown for mobile */}
-							<div className="py-3 px-6 flex justify-center">
+							<div className="flex justify-center px-6 py-3">
 								<CurrencyDropdown />
 							</div>
 						</nav>

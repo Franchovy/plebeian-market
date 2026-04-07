@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ImageUploader } from '@/components/ui/image-uploader/ImageUploader'
+import { ImageUploader } from '@/components/shared/ImageUploader'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -227,7 +227,7 @@ export function DetailTab() {
 		<div className="space-y-6">
 			{/* Currency Dropdown */}
 			<div className="space-y-2">
-				<Label htmlFor="currency" className="text-sm font-medium">
+				<Label htmlFor="currency" className="font-medium text-sm">
 					Choose your local currency <span className="text-red-500">*</span>
 				</Label>
 				<Select value={currency} onValueChange={handleCurrencyChange}>
@@ -244,13 +244,13 @@ export function DetailTab() {
 				</Select>
 			</div>
 
-			<div className="flex flex-row w-full items-end">
+			<div className="flex flex-row items-end w-full">
 				{/* Fiat Price Field (conditional) */}
 				{showFiatField && (
-					<div className="space-y-2 flex-1">
-						<Label htmlFor="fiat-price" className="text-sm font-medium">
+					<div className="flex-1 space-y-2">
+						<Label htmlFor="fiat-price" className="font-medium text-sm">
 							Price <span className="text-red-500">*</span>
-							<span className="text-xs text-muted-foreground ml-1">(In {currency})</span>
+							<span className="ml-1 text-muted-foreground text-xs">(In {currency})</span>
 						</Label>
 						<Input
 							id="fiat-price"
@@ -264,12 +264,12 @@ export function DetailTab() {
 					</div>
 				)}
 
-				{showFiatField && <ArrowRightLeft className="m-2 w-6 h-6 flex-shrink-0" />}
+				{showFiatField && <ArrowRightLeft className="flex-shrink-0 m-2 w-6 h-6" />}
 				{/* Bitcoin Price Field (always visible) */}
-				<div className="space-y-2 flex-1">
-					<Label htmlFor="bitcoin-price" className="text-sm font-medium">
+				<div className="flex-1 space-y-2">
+					<Label htmlFor="bitcoin-price" className="font-medium text-sm">
 						Price in {bitcoinUnit} <span className="text-red-500">*</span>
-						<span className="text-xs text-muted-foreground ml-1">(Bitcoin)</span>
+						<span className="ml-1 text-muted-foreground text-xs">(Bitcoin)</span>
 					</Label>
 					<div className="relative">
 						<Input
@@ -286,7 +286,7 @@ export function DetailTab() {
 							variant="ghost"
 							size="sm"
 							onClick={toggleBitcoinUnit}
-							className="absolute right-1 top-1/2 -translate-y-1/2 h-8 px-3 text-xs"
+							className="top-1/2 right-1 absolute px-3 h-8 text-xs -translate-y-1/2"
 						>
 							{bitcoinUnit}
 						</Button>
@@ -297,7 +297,7 @@ export function DetailTab() {
 			{/* Radio Group for Fiat Currencies */}
 			{showRadioGroup && (
 				<div className="space-y-3">
-					<Label className="text-sm font-medium">Currency Mode</Label>
+					<Label className="font-medium text-sm">Currency Mode</Label>
 					<RadioGroup
 						value={currencyMode}
 						onValueChange={(value: 'sats' | 'fiat') => {
@@ -338,9 +338,9 @@ export function DetailTab() {
 				}}
 			>
 				{(field) => (
-					<div className="grid w-full gap-1.5">
+					<div className="gap-1.5 grid w-full">
 						<Label htmlFor={field.name}>
-							<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Quantity</span>
+							<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Quantity</span>
 						</Label>
 						<Input
 							id={field.name}
@@ -359,15 +359,15 @@ export function DetailTab() {
 							inputMode="numeric"
 						/>
 						{field.state.meta.errors?.length > 0 && field.state.meta.isTouched && (
-							<div className="text-red-500 text-sm mt-1">{field.state.meta.errors.join(', ')}</div>
+							<div className="mt-1 text-red-500 text-sm">{field.state.meta.errors.join(', ')}</div>
 						)}
 					</div>
 				)}
 			</form.Field>
 
-			<div className="grid w-full gap-1.5">
+			<div className="gap-1.5 grid w-full">
 				<Label>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Status</span>
+					<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Status</span>
 				</Label>
 				<Select
 					value={status}
@@ -391,7 +391,7 @@ export function DetailTab() {
 			</div>
 
 			{/* NSFW Content Warning */}
-			<div className="flex items-start space-x-3 p-4 border rounded-lg bg-amber-50/50 border-amber-200">
+			<div className="flex items-start space-x-3 bg-amber-50/50 p-4 border border-amber-200 rounded-lg">
 				<Checkbox
 					id="nsfw-content"
 					checked={isNSFW}
@@ -399,11 +399,11 @@ export function DetailTab() {
 					className="mt-0.5"
 				/>
 				<div className="space-y-1">
-					<Label htmlFor="nsfw-content" className="text-sm font-medium cursor-pointer flex items-center gap-2">
+					<Label htmlFor="nsfw-content" className="flex items-center gap-2 font-medium text-sm cursor-pointer">
 						<AlertTriangle className="w-4 h-4 text-amber-600" />
 						This product contains adult/sensitive content
 					</Label>
-					<p className="text-xs text-muted-foreground">
+					<p className="text-muted-foreground text-xs">
 						Check this if your product contains NSFW material, alcohol, tobacco, weapons, or other age-restricted content. Products marked
 						as NSFW will be hidden from users who haven't enabled adult content viewing.
 					</p>
@@ -462,9 +462,9 @@ export function CategoryTab() {
 
 	return (
 		<div className="space-y-4">
-			<div className="grid w-full gap-1.5">
+			<div className="gap-1.5 grid w-full">
 				<Label>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Main Category</span>
+					<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Main Category</span>
 				</Label>
 				<Select value={mainCategory || ''} onValueChange={handleMainCategorySelect}>
 					<SelectTrigger className="border-2" data-testid="product-main-category-select">
@@ -485,45 +485,45 @@ export function CategoryTab() {
 					<p className="text-gray-600">Pick a sub category that better represents the nature of your product</p>
 
 					<div className="space-y-2">
-						<div className="grid w-full gap-1.5">
+						<div className="gap-1.5 grid w-full">
 							<Label>Sub Category 1</Label>
 							<div className="relative">
 								<Input
 									value={categories[0]?.name || ''}
 									onChange={(e) => updateCategoryName(0, e.target.value)}
-									className="flex-1 border-2 pr-10"
+									className="flex-1 pr-10 border-2"
 									placeholder="e.g Bitcoin Miners"
 								/>
 								{categories.length > 0 && (
 									<Button
 										type="button"
 										variant="ghost"
-										className="absolute right-0 top-0 h-full px-2 text-black"
+										className="top-0 right-0 absolute px-2 h-full text-black"
 										onClick={() => removeSubCategory(0)}
 									>
-										<span className="i-delete w-5 h-5"></span>
+										<span className="w-5 h-5 i-delete"></span>
 									</Button>
 								)}
 							</div>
 						</div>
 
 						{categories.slice(1).map((category, index) => (
-							<div key={category.key} className="grid w-full gap-1.5">
+							<div key={category.key} className="gap-1.5 grid w-full">
 								<Label>Sub Category {index + 2}</Label>
 								<div className="relative">
 									<Input
 										value={category.name}
 										onChange={(e) => updateCategoryName(index + 1, e.target.value)}
-										className="flex-1 border-2 pr-10"
+										className="flex-1 pr-10 border-2"
 										placeholder="e.g Bitcoin Miners"
 									/>
 									<Button
 										type="button"
 										variant="ghost"
-										className="absolute right-0 top-0 h-full px-2 text-black"
+										className="top-0 right-0 absolute px-2 h-full text-black"
 										onClick={() => removeSubCategory(index + 1)}
 									>
-										<span className="i-delete w-5 h-5"></span>
+										<span className="w-5 h-5 i-delete"></span>
 									</Button>
 								</div>
 							</div>
@@ -533,11 +533,11 @@ export function CategoryTab() {
 					<Button
 						type="button"
 						variant="outline"
-						className="w-full flex gap-2 justify-center mt-4"
+						className="flex justify-center gap-2 mt-4 w-full"
 						onClick={addSubCategory}
 						disabled={categories.length >= 3}
 					>
-						<span className="i-plus w-5 h-5"></span>
+						<span className="w-5 h-5 i-plus"></span>
 						New Sub Category
 					</Button>
 				</>
@@ -595,9 +595,9 @@ export function ImagesTab() {
 
 			<div className="flex flex-col gap-4">
 				<Label>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Image Upload</span>
+					<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Image Upload</span>
 					<span className="sr-only">required</span>
-					{images.length === 0 && <span className="text-sm text-red-500 ml-2">(At least one image required)</span>}
+					{images.length === 0 && <span className="ml-2 text-red-500 text-sm">(At least one image required)</span>}
 				</Label>
 
 				{images.map((image, i) => (
@@ -881,9 +881,9 @@ export function ShippingTab() {
 		<div className="space-y-6">
 			<div className="space-y-2">
 				<Label>
-					<span className="after:content-['*'] after:ml-0.5 after:text-red-500">Shipping Options</span>
+					<span className="after:ml-0.5 after:text-red-500 after:content-['*']">Shipping Options</span>
 					<span className="sr-only">required</span>
-					{!hasValidShipping && <span className="text-sm text-red-500 ml-2">(At least one shipping option required)</span>}
+					{!hasValidShipping && <span className="ml-2 text-red-500 text-sm">(At least one shipping option required)</span>}
 				</Label>
 				<p className="text-gray-600">Select shipping options that will be available for this product</p>
 			</div>
@@ -896,14 +896,14 @@ export function ShippingTab() {
 						{resolvedSelectedShippings.map((shipping, index) => {
 							const option = shipping.option
 							return (
-								<div key={index} className="flex items-center gap-3 p-3 border rounded-md bg-gray-50">
+								<div key={index} className="flex items-center gap-3 bg-gray-50 p-3 border rounded-md">
 									{option?.service ? <ServiceIcon service={option.service} /> : <AlertTriangle className="w-4 h-4 text-amber-500" />}
 									<div className="flex-1">
 										<div className="font-medium">
 											{option?.name || (shippingOptionsQuery.isFetched ? 'Unavailable shipping option' : 'Resolving shipping option...')}
 										</div>
 										{option ? (
-											<div className="text-sm text-gray-500">
+											<div className="text-gray-500 text-sm">
 												{option.cost} {option.currency} •{' '}
 												{option.countries && option.countries.length > 1
 													? `${option.countries.length} countries`
@@ -911,9 +911,9 @@ export function ShippingTab() {
 												• {option.service || 'Unknown service'}
 											</div>
 										) : shippingOptionsQuery.isFetched ? (
-											<div className="text-sm text-amber-600">This shipping reference is no longer available: {shipping.shippingRef}</div>
+											<div className="text-amber-600 text-sm">This shipping reference is no longer available: {shipping.shippingRef}</div>
 										) : (
-											<div className="text-sm text-gray-500">Looking up current shipping metadata...</div>
+											<div className="text-gray-500 text-sm">Looking up current shipping metadata...</div>
 										)}
 									</div>
 									<div className="flex items-center gap-2">
@@ -947,23 +947,23 @@ export function ShippingTab() {
 			<div className="space-y-4">
 				<h3 className="font-medium">Available Shipping Options</h3>
 				{shippingOptionsQuery.isLoading ? (
-					<div className="flex items-center justify-center p-8">
+					<div className="flex justify-center items-center p-8">
 						<Loader2 className="w-6 h-6 animate-spin" />
 						<span className="ml-2">Loading shipping options...</span>
 					</div>
 				) : availableShippingOptions.length === 0 ? (
 					<div className="space-y-4">
-						<div className="text-center p-4 text-gray-500">
+						<div className="p-4 text-gray-500 text-center">
 							<p>No shipping options available.</p>
-							<p className="text-sm mt-2">Quick-create a shipping option to get started:</p>
+							<p className="mt-2 text-sm">Quick-create a shipping option to get started:</p>
 						</div>
 						{showPickupForm ? (
-							<div className="border rounded-md p-4 space-y-4 bg-gray-50">
+							<div className="space-y-4 bg-gray-50 p-4 border rounded-md">
 								<div className="flex items-center gap-2">
 									<PackageIcon className="w-5 h-5 text-green-500" />
 									<h4 className="font-medium">Local Pickup Address</h4>
 								</div>
-								<p className="text-sm text-gray-500">Enter the address where customers can pick up their orders:</p>
+								<p className="text-gray-500 text-sm">Enter the address where customers can pick up their orders:</p>
 								<div className="space-y-3">
 									<div>
 										<Label htmlFor="pickup-street" className="text-sm">
@@ -977,7 +977,7 @@ export function ShippingTab() {
 											className="mt-1"
 										/>
 									</div>
-									<div className="grid grid-cols-2 gap-3">
+									<div className="gap-3 grid grid-cols-2">
 										<div>
 											<Label htmlFor="pickup-city" className="text-sm">
 												City <span className="text-red-500">*</span>
@@ -1003,7 +1003,7 @@ export function ShippingTab() {
 											/>
 										</div>
 									</div>
-									<div className="grid grid-cols-2 gap-3">
+									<div className="gap-3 grid grid-cols-2">
 										<div>
 											<Label htmlFor="pickup-postal" className="text-sm">
 												Postal Code
@@ -1046,7 +1046,7 @@ export function ShippingTab() {
 									<Button type="button" onClick={handlePickupSubmit} disabled={isCreatingShipping} className="flex-1">
 										{isCreatingShipping ? (
 											<>
-												<Loader2 className="w-4 h-4 animate-spin mr-2" />
+												<Loader2 className="mr-2 w-4 h-4 animate-spin" />
 												Creating...
 											</>
 										) : (
@@ -1056,24 +1056,24 @@ export function ShippingTab() {
 								</div>
 							</div>
 						) : (
-							<div className="grid gap-3">
+							<div className="gap-3 grid">
 								{QUICK_SHIPPING_TEMPLATES.map((template) => (
 									<button
 										key={template.name}
 										type="button"
 										onClick={() => handleQuickCreate(template)}
 										disabled={isCreatingShipping}
-										className="flex items-center gap-3 p-4 border rounded-md hover:bg-gray-50 text-left transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+										className="flex items-center gap-3 hover:bg-gray-50 disabled:opacity-50 p-4 border rounded-md text-left transition-colors disabled:cursor-not-allowed"
 									>
-										{template.icon === 'digital' && <DownloadIcon className="w-5 h-5 text-purple-500 flex-shrink-0" />}
-										{template.icon === 'worldwide' && <TruckIcon className="w-5 h-5 text-blue-500 flex-shrink-0" />}
-										{template.icon === 'pickup' && <PackageIcon className="w-5 h-5 text-green-500 flex-shrink-0" />}
+										{template.icon === 'digital' && <DownloadIcon className="flex-shrink-0 w-5 h-5 text-purple-500" />}
+										{template.icon === 'worldwide' && <TruckIcon className="flex-shrink-0 w-5 h-5 text-blue-500" />}
+										{template.icon === 'pickup' && <PackageIcon className="flex-shrink-0 w-5 h-5 text-green-500" />}
 										<div className="flex-1 min-w-0">
 											<div className="font-medium">{template.name}</div>
-											<div className="text-sm text-gray-500">{template.description}</div>
+											<div className="text-gray-500 text-sm">{template.description}</div>
 										</div>
 										{isCreatingShipping ? (
-											<Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+											<Loader2 className="w-5 h-5 text-gray-400 animate-spin" />
 										) : (
 											<PlusIcon className="w-5 h-5 text-gray-400" />
 										)}
@@ -1081,18 +1081,18 @@ export function ShippingTab() {
 								))}
 							</div>
 						)}
-						<p className="text-xs text-gray-400 text-center">You can customize these options later in Dashboard → Shipping Options</p>
+						<p className="text-gray-400 text-xs text-center">You can customize these options later in Dashboard → Shipping Options</p>
 					</div>
 				) : (
-					<div className="grid gap-3">
+					<div className="gap-3 grid">
 						{availableShippingOptions
 							.filter((option) => !shippings.some((s) => s.shippingRef === option.id))
 							.map((option) => (
-								<div key={option.id} className="flex items-center gap-3 p-3 border rounded-md hover:bg-gray-50">
+								<div key={option.id} className="flex items-center gap-3 hover:bg-gray-50 p-3 border rounded-md">
 									{option.service && <ServiceIcon service={option.service} />}
 									<div className="flex-1">
 										<div className="font-medium">{option.name}</div>
-										<div className="text-sm text-gray-500">
+										<div className="text-gray-500 text-sm">
 											{option.cost} {option.currency} •{' '}
 											{option.countries && option.countries.length > 1
 												? `${option.countries.length} countries`
@@ -1134,13 +1134,13 @@ export function SpecTab() {
 	return (
 		<div className="space-y-6">
 			<div className="space-y-2">
-				<Label className="text-base font-medium">Product Specifications</Label>
+				<Label className="font-medium text-base">Product Specifications</Label>
 				<p className="text-gray-600">Add detailed specifications for your product</p>
 			</div>
 
 			<div className="space-y-4">
 				{specs.map((spec, index) => (
-					<div key={index} className="flex gap-3 items-start">
+					<div key={index} className="flex items-start gap-3">
 						<div className="flex-1">
 							<Input
 								placeholder="Specification name (e.g., Material, Size, Weight)"
@@ -1161,7 +1161,7 @@ export function SpecTab() {
 					</div>
 				))}
 
-				<Button type="button" variant="outline" onClick={addSpec} className="w-full flex items-center gap-2">
+				<Button type="button" variant="outline" onClick={addSpec} className="flex items-center gap-2 w-full">
 					<PlusIcon className="w-4 h-4" />
 					Add Specification
 				</Button>

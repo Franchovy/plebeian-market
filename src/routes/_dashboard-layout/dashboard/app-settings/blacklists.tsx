@@ -1,5 +1,5 @@
-import { CollectionDisplayComponent } from '@/components/CollectionDisplayComponent'
-import { ProductDisplayComponent } from '@/components/ProductDisplayComponent'
+import { CollectionDisplayComponent } from '@/components/features/dashboard/CollectionDisplayComponent'
+import { ProductDisplayComponent } from '@/components/features/dashboard/ProductDisplayComponent'
 import { UserDisplayComponent } from '@/components/UserDisplayComponent'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -230,10 +230,10 @@ function BlacklistsComponent() {
 		return (
 			<div className="space-y-6 p-6">
 				<div className="animate-pulse">
-					<div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+					<div className="bg-gray-200 mb-4 rounded w-1/4 h-8"></div>
 					<div className="space-y-3">
-						<div className="h-4 bg-gray-200 rounded w-1/2"></div>
-						<div className="h-4 bg-gray-200 rounded w-1/3"></div>
+						<div className="bg-gray-200 rounded w-1/2 h-4"></div>
+						<div className="bg-gray-200 rounded w-1/3 h-4"></div>
 					</div>
 				</div>
 			</div>
@@ -243,11 +243,11 @@ function BlacklistsComponent() {
 	if (!amIAdmin && !amIEditor) {
 		return (
 			<div className="space-y-6 p-6">
-				<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+				<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 					<div className="flex items-center gap-3">
 						<Shield className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Blacklists</h1>
+							<h1 className="font-bold text-2xl">Blacklists</h1>
 							<p className="text-muted-foreground text-sm">Manage user blacklists</p>
 						</div>
 					</div>
@@ -256,8 +256,8 @@ function BlacklistsComponent() {
 				<Card>
 					<CardContent className="p-6">
 						<div className="text-center">
-							<Shield className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-							<h3 className="text-lg font-medium mb-2">Access Denied</h3>
+							<Shield className="mx-auto mb-4 w-16 h-16 text-gray-400" />
+							<h3 className="mb-2 font-medium text-lg">Access Denied</h3>
 							<p className="text-gray-600">You don't have permission to manage blacklists.</p>
 						</div>
 					</CardContent>
@@ -268,11 +268,11 @@ function BlacklistsComponent() {
 
 	return (
 		<div>
-			<div className="hidden lg:flex sticky top-0 z-10 bg-white border-b py-4 px-4 lg:px-6 items-center justify-between">
+			<div className="hidden top-0 z-10 sticky lg:flex justify-between items-center bg-white px-4 lg:px-6 py-4 border-b">
 				<div className="flex items-center gap-3">
 					<Shield className="w-6 h-6 text-muted-foreground" />
 					<div>
-						<h1 className="text-2xl font-bold">Blacklists</h1>
+						<h1 className="font-bold text-2xl">Blacklists</h1>
 						<p className="text-muted-foreground text-sm">Manage blacklisted users, products, and collections</p>
 					</div>
 				</div>
@@ -282,31 +282,31 @@ function BlacklistsComponent() {
 					<div className="flex items-center gap-3">
 						<Shield className="w-6 h-6 text-muted-foreground" />
 						<div>
-							<h1 className="text-2xl font-bold">Blacklists</h1>
+							<h1 className="font-bold text-2xl">Blacklists</h1>
 							<p className="text-muted-foreground text-sm">Manage blacklisted users, products, and collections</p>
 						</div>
 					</div>
 				</div>
 
 				<Tabs defaultValue="users" className="w-full">
-					<TabsList className="w-full rounded-none bg-transparent h-auto p-0 flex">
+					<TabsList className="flex bg-transparent p-0 rounded-none w-full h-auto">
 						<TabsTrigger
 							value="users"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<UsersIcon className="w-4 h-4" />
 							Users
 						</TabsTrigger>
 						<TabsTrigger
 							value="products"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<Package className="w-4 h-4" />
 							Products
 						</TabsTrigger>
 						<TabsTrigger
 							value="collections"
-							className="flex-1 px-4 py-2 font-medium data-[state=active]:text-secondary border-b-1 data-[state=active]:border-secondary data-[state=inactive]:text-black rounded-none flex items-center gap-2"
+							className="flex flex-1 items-center gap-2 px-4 py-2 data-[state=active]:border-secondary border-b-1 rounded-none font-medium data-[state=active]:text-secondary data-[state=inactive]:text-black"
 						>
 							<FolderOpen className="w-4 h-4" />
 							Collections
@@ -325,8 +325,8 @@ function BlacklistsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{formattedBlacklist.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<UserMinus className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<UserMinus className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No users are currently blacklisted</p>
 									</div>
 								) : (
@@ -366,7 +366,7 @@ function BlacklistsComponent() {
 										/>
 										<Button onClick={handleAddUser} disabled={isAddingUser || addToBlacklistMutation.isPending || !newUserInput.trim()}>
 											{isAddingUser || addToBlacklistMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<UserMinus className="w-4 h-4" />
 											)}
@@ -390,8 +390,8 @@ function BlacklistsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{blacklistedProducts.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<Package className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<Package className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No products are currently blacklisted</p>
 									</div>
 								) : (
@@ -434,7 +434,7 @@ function BlacklistsComponent() {
 											disabled={isAddingProduct || addProductMutation.isPending || !newProductInput.trim()}
 										>
 											{isAddingProduct || addProductMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<Package className="w-4 h-4" />
 											)}
@@ -458,8 +458,8 @@ function BlacklistsComponent() {
 							</CardHeader>
 							<CardContent className="space-y-4">
 								{blacklistedCollections.length === 0 ? (
-									<div className="text-center py-8 text-gray-500">
-										<FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+									<div className="py-8 text-gray-500 text-center">
+										<FolderOpen className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 										<p>No collections are currently blacklisted</p>
 									</div>
 								) : (
@@ -502,7 +502,7 @@ function BlacklistsComponent() {
 											disabled={isAddingCollection || addCollectionMutation.isPending || !newCollectionInput.trim()}
 										>
 											{isAddingCollection || addCollectionMutation.isPending ? (
-												<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<div className="border-2 border-white border-t-transparent rounded-full w-4 h-4 animate-spin" />
 											) : (
 												<FolderOpen className="w-4 h-4" />
 											)}
@@ -525,7 +525,7 @@ function BlacklistsComponent() {
 							{amIAdmin ? <Shield className="w-5 h-5 text-blue-600" /> : <Shield className="w-5 h-5 text-purple-600" />}
 							<div>
 								<div className="font-medium">{amIAdmin ? 'Administrator' : 'Editor'}</div>
-								<div className="text-sm text-gray-600">
+								<div className="text-gray-600 text-sm">
 									{amIAdmin
 										? 'You have full control over the marketplace and can manage blacklists.'
 										: 'You can manage blacklists but have limited administrative access.'}
