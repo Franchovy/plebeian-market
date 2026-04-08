@@ -8,15 +8,14 @@ import { usePublishCommentMutation } from '@/publish/comments'
 import { authStore, useAuth } from '@/lib/stores/auth'
 import { useStore } from '@tanstack/react-store'
 import { useState } from 'react'
-import { Button } from './ui/button'
-import { Textarea } from './ui/textarea'
-import { CircleX, MessageSquare, Reply, X } from 'lucide-react'
-import { ProfileName } from './ProfileName'
-import { useProfile, useProfileName } from '@/queries/profiles'
+import { Button } from '../../ui/button'
+import { Textarea } from '../../ui/textarea'
+import { MessageSquare, Reply, X } from 'lucide-react'
+import { useProfile } from '@/queries/profiles'
 import { npubEncode } from 'nostr-tools/nip19'
-import { UserCard } from './UserCard'
+import { UserCard } from '@/components/shared/user/UserCard'
 import type { NDKEvent } from '@nostr-dev-kit/ndk'
-import SocialInteractions from './social/SocialInteractions'
+import SocialInteractions from '@/components/shared/social/SocialInteractions'
 import { toast } from 'sonner'
 
 interface CommentItemProps {
@@ -65,15 +64,15 @@ function CommentItem({ comment, onPressReply }: CommentItemProps) {
 		(npubUserParentAuthor ? npubUserParentAuthor.slice(0, 9) + '..' + npubUserParentAuthor.slice(-6) : '')
 
 	return (
-		<div className="relative border-b border-gray-200 py-2 my-4 last:border-b-0">
-			<div className="flex items-center justify-between mb-3">
+		<div className="relative my-4 py-2 border-gray-200 border-b last:border-b-0">
+			<div className="flex justify-between items-center mb-3">
 				<UserCard pubkey={comment.authorPubkey} />
-				<span className="text-sm text-gray-500">{formatDate(comment.createdAt)}</span>
+				<span className="text-gray-500 text-sm">{formatDate(comment.createdAt)}</span>
 			</div>
 
-			{comment.parentComment && <p className="text-xs mb-1">Replying to: {textUserParentAuthor}</p>}
+			{comment.parentComment && <p className="mb-1 text-xs">Replying to: {textUserParentAuthor}</p>}
 
-			<p className="text-gray-700 whitespace-pre-wrap mb-1">{comment.content}</p>
+			<p className="mb-1 text-gray-700 whitespace-pre-wrap">{comment.content}</p>
 
 			<SocialInteractions
 				event={comment.event}
@@ -88,7 +87,7 @@ function CommentItem({ comment, onPressReply }: CommentItemProps) {
 				hideShareButton
 				buttonVariant="ghost"
 				combineZapsAndReactions
-				className="comment-social-interactions flex-row items-center"
+				className="flex-row items-center comment-social-interactions"
 			/>
 		</div>
 	)
@@ -109,7 +108,7 @@ function CommentThread({ comments, replyingTo, eventRoot, setReplyingTo }: Comme
 						/>
 					) : null}
 					{commentChild.children && commentChild.children.length > 0 ? (
-						<div key={'comment-thread-' + commentChild.id} className="flex-col gap-2 pl-8 border-l border-gray-200">
+						<div key={'comment-thread-' + commentChild.id} className="flex-col gap-2 pl-8 border-gray-200 border-l">
 							<CommentThread comments={commentChild.children} replyingTo={replyingTo} eventRoot={eventRoot} setReplyingTo={setReplyingTo} />
 						</div>
 					) : null}
@@ -166,7 +165,7 @@ function AddCommentForm({ targetEvent, parentComment, onCancel }: AddCommentProp
 			{parentComment && (
 				<div className="flex items-center gap-2 mb-2">
 					<Reply className="w-4 h-4 text-gray-500" />
-					<span className="text-sm text-gray-600">Replying to: {textUserReplyingTo}</span>
+					<span className="text-gray-600 text-sm">Replying to: {textUserReplyingTo}</span>
 				</div>
 			)}
 			<Textarea
@@ -213,13 +212,13 @@ export function Comments({ targetEvent }: CommentsProps) {
 
 			{/* Comments List */}
 			<div data-testid="product-comments">
-				{isLoading && <p className="text-gray-500 text-center py-4">Loading comments...</p>}
+				{isLoading && <p className="py-4 text-gray-500 text-center">Loading comments...</p>}
 
-				{error && <p className="text-red-600 text-center py-4">Failed to load comments</p>}
+				{error && <p className="py-4 text-red-600 text-center">Failed to load comments</p>}
 
 				{!isLoading && !error && comments && comments.length === 0 && (
-					<div className="text-center py-8">
-						<MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+					<div className="py-8 text-center">
+						<MessageSquare className="mx-auto mb-3 w-12 h-12 text-gray-300" />
 						<p className="text-gray-500">No comments yet. Be the first to comment!</p>
 					</div>
 				)}
@@ -233,7 +232,7 @@ export function Comments({ targetEvent }: CommentsProps) {
 								type="button"
 								variant="ghost"
 								onClick={() => setShowAll(true)}
-								className="w-full text-center py-3 text-secondary hover:text-secondary/80 font-medium"
+								className="py-3 w-full font-medium text-secondary hover:text-secondary/80 text-center"
 							>
 								Show More
 							</Button>

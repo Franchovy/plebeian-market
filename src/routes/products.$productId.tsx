@@ -54,6 +54,7 @@ import { ShareButton } from '@/components/shared/social/ShareButton'
 import SocialInteractions from '@/components/shared/social/SocialInteractions'
 import type { NDKEvent } from '@nostr-dev-kit/ndk'
 import { scrollToElementWithOffset } from '@/lib/utils/ui'
+import { Comments } from '@/components/shared/social/Comments'
 
 // Hook to inject dynamic CSS
 function useHeroBackground(imageUrl: string, className: string) {
