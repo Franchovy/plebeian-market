@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { StockUpdateDialog } from './StockUpdateDialog'
+import { classNameButtonBorderHighlight } from '@/components/shared/ui/ButtonExtended'
 
 interface OrderActionsProps {
 	order: OrderWithRelatedEvents
@@ -197,11 +198,10 @@ export function OrderActions({ order, userPubkey, variant = 'outline', className
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<Button
-							variant="primary"
+							className={classNameButtonBorderHighlight + ' w-8 h-8 shrink-0'}
 							size="icon"
 							onClick={nextAction.action}
 							disabled={isLoading}
-							className="w-8 h-8 shrink-0"
 							aria-label={nextAction.label}
 						>
 							<nextAction.icon className="w-4 h-4" />

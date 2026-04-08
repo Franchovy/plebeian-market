@@ -19,6 +19,7 @@ import { Copy, Check } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { UserCard } from '@/components/shared/user/UserCard'
+import { classNameButtonBorderHighlight } from '@/components/shared/ui/ButtonExtended'
 
 export const Route = createFileRoute('/_dashboard-layout/dashboard/app-settings/app-miscelleneous')({
 	component: AppMiscelleneousComponent,
@@ -134,7 +135,12 @@ function AppMiscelleneousComponent() {
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
-						<Button type="button" disabled={isSubmitting || !canSubmit} onClick={() => form.handleSubmit()} variant="primary">
+						<Button
+							type="button"
+							disabled={isSubmitting || !canSubmit}
+							onClick={() => form.handleSubmit()}
+							className={classNameButtonBorderHighlight}
+						>
 							{isSubmitting ? 'Saving...' : 'Save Settings'}
 						</Button>
 					)}
@@ -508,7 +514,7 @@ function AppMiscelleneousComponent() {
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
-						<Button type="submit" className="lg:hidden w-full" disabled={isSubmitting || !canSubmit} variant="primary">
+						<Button type="submit" disabled={isSubmitting || !canSubmit} className={classNameButtonBorderHighlight + ' lg:hidden w-full'}>
 							{isSubmitting ? 'Saving...' : 'Save Settings'}
 						</Button>
 					)}

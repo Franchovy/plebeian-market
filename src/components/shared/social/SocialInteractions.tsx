@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ZapButton } from './ZapButton'
 import NDK, { NDKEvent } from '@nostr-dev-kit/ndk'
-import { Button, type ButtonVariant } from '../ui/button'
+import { Button, type ButtonVariant } from '../ui/ButtonProps'
 import { ShareButton } from './ShareButton'
 import { ReactionButton } from './ReactionButton'
 import { CommentButton } from './CommentButton'

@@ -12,7 +12,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"]
-		}
-	},
+		},
+		"target": "es2017",
+		"skipLibCheck": true
+  },
 	"include": ["**/*.ts", "**/*.tsx", "scripts/**/*.ts"]
 }

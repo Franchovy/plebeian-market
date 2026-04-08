@@ -4,12 +4,13 @@ import { useZapCapability } from '@/queries/profiles'
 import { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk'
 import * as React from 'react'
 import { useState } from 'react'
-import { Button, type ButtonVariant } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
+import type { ButtonProps } from '../ui/ButtonProps'
+import { TooltipButton } from '../ui/TooltipButton'
 
-interface ZapButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ZapButtonProps extends ButtonProps {
 	event: NDKEvent | NDKUser
-	variant?: ButtonVariant
 }
 
 export function ZapButton({ event, className, onClick, onPointerDown, type, variant, ...props }: ZapButtonProps) {
@@ -53,7 +54,7 @@ export function ZapButton({ event, className, onClick, onPointerDown, type, vari
 
 	return (
 		<>
-			<Button
+			<TooltipButton
 				variant={variant ?? 'focus'}
 				size="icon"
 				className={cn('group gap-2 bg-transparent hover:bg-focus border-focus text-focus hover:text-black hover:animate-pulse', className)}
@@ -66,33 +67,13 @@ export function ZapButton({ event, className, onClick, onPointerDown, type, vari
 					handleButtonInteraction(e)
 					if (!isDisabled) {
 						void handleClick()
-<<<<<<<< HEAD:src/components/social/ZapButton.tsx
 					}
 				}}
 				onPointerDown={handleButtonPointerDown}
 				disabled={isDisabled}
-				icon={icon}
-			/>
-========
-					}}
-					onPointerDown={handleButtonPointerDown}
-					disabled={isZapping || !canAuthorReceiveZaps}
-					icon={<span className={cn('w-6 h-6 i-lightning', isZapping && 'animate-bounce')} />}
-				/>
-			) : (
-				<Button
-					variant="focus"
-					size="icon"
-					className={cn('gap-2', isZapping && 'animate-pulse', className)}
-					{...props}
-					type={type ?? 'button'}
-					onClick={handleButtonInteraction}
-					onPointerDown={handleButtonPointerDown}
-					disabled={true}
-					icon={<span className={cn('w-6 h-6 i-lightning', isZapping && 'animate-bounce')} />}
-				/>
-			)}
->>>>>>>> 76d4c30 (reorganized component files into features/shared):src/components/shared/entity/ZapButton.tsx
+			>
+				{icon}
+			</TooltipButton>
 			<ZapDialog isOpen={dialogOpen} onOpenChange={handleOpenChange} event={event} onZapComplete={handleZapComplete} />
 		</>
 	)

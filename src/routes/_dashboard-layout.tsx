@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, Link, Outlet, useLocation, useMatchRoute, useNavigate } from '@tanstack/react-router'
 import React, { useState } from 'react'
 import { UserCard } from '@/components/shared/user/UserCard'
+import { buttonVariantsExtended } from '@/components/shared/ui/ButtonExtended'
 
 export const Route = createFileRoute('/_dashboard-layout')({
 	component: DashboardLayout,
@@ -130,7 +131,7 @@ function LoginPrompt() {
 		<div className="flex justify-center items-center h-full">
 			<div className="flex flex-col items-center space-y-4">
 				<p className="text-muted-foreground text-lg">Please log in to view</p>
-				<Button variant="primary" onClick={handleLoginClick}>
+				<Button className={buttonVariantsExtended({ variant: 'primary' })} onClick={handleLoginClick}>
 					Login
 				</Button>
 			</div>

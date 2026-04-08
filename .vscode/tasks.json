@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "tsc: check project",
+      
+      "type": "shell",
+        "command": "npx",
+        "args": ["tsc", "--noEmit", "-p", "."],
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "silent"
+      }
+    }
+  ]
+}   

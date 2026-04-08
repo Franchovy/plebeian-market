@@ -3,7 +3,6 @@ import { MobileMenu } from '@/components/layout/MobileMenu'
 import { ProductSearch } from '@/components/features/header/ProductSearch'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Nip60Wallet } from '@/components/features/wallet/Nip60Wallet'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { authActions, authStore } from '@/lib/stores/auth'
@@ -19,27 +18,28 @@ import { AvatarUser } from '@/components/shared/user/AvatarUser'
 import { cn } from '@/lib/utils'
 import { useProfile } from '@/queries/profiles'
 import { BugReportModal } from '@/components/features/bug-report/BugReportModal'
+import { TooltipButton } from '@/components/shared/ui/TooltipButton'
+import { classNameButtonBorderHighlight, classNameButtonPrimary } from '../shared/ui/ButtonExtended'
 
 const LoginButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => {
 	return (
-		<Button
-			variant="primary"
-			className="relative p-2 hover:[&>span]:text-secondary"
-			icon={<span className="w-6 h-6 i-account" />}
+		<TooltipButton
 			data-testid="login-button"
 			ref={ref}
 			tooltip="Log In"
 			{...props}
+			className={classNameButtonBorderHighlight}
 			onClick={() => uiActions.openDialog('login')}
-		/>
+		>
+			<span className="w-6 h-6 i-account" />
+		</TooltipButton>
 	)
 })
 
 const LogoutButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => {
 	return (
-		<Button
-			variant="primary"
-			className="relative p-2 hover:[&>svg]:text-secondary"
+		<TooltipButton
+			className={classNameButtonPrimary + ' relative p-2 hover:[&>svg]:text-secondary'}
 			data-testid="logout-button"
 			ref={ref}
 			tooltip="Log Out"
@@ -47,7 +47,7 @@ const LogoutButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HT
 			onClick={() => authActions.logout()}
 		>
 			<LogOut className="w-6 h-6" />
-		</Button>
+		</TooltipButton>
 	)
 })
 
@@ -78,7 +78,7 @@ const ProfileButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<H
 
 	// Both desktop and mobile - simple button that navigates to profile when authenticated
 	return (
-		<Button
+		<TooltipButton
 			variant={authState.isAuthenticated ? 'primary' : 'outline'}
 			size={'icon'}
 			className={cn(
@@ -102,7 +102,7 @@ const ProfileButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<H
 					)}
 				</>
 			)}
-		</Button>
+		</TooltipButton>
 	)
 })
 
@@ -118,14 +118,20 @@ const CartButton = forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTML
 	}
 
 	return (
-		<Button variant="primary" tooltip="View cart" className="relative p-2 hover:text-secondary" ref={ref} {...props} onClick={handleClick}>
+		<TooltipButton
+			className={classNameButtonBorderHighlight + ' relative p-2 hover:text-secondary'}
+			tooltip="View cart"
+			ref={ref}
+			{...props}
+			onClick={handleClick}
+		>
 			<span className="w-6 h-6 i-basket" />
 			{totalItems > 0 && (
 				<span className="-top-2.5 -right-2.5 absolute flex justify-center items-center bg-secondary rounded-full w-5 h-5 font-bold text-black text-xs">
 					{totalItems > 99 ? '99+' : totalItems}
 				</span>
 			)}
-		</Button>
+		</TooltipButton>
 	)
 })
 
@@ -138,17 +144,20 @@ const DashboardButton = forwardRef<HTMLButtonElement, DashboardButtonProps>((pro
 
 	return (
 		<Link to="/dashboard" data-testid="dashboard-link" className="relative">
-			<Button
-				variant="primary"
-				className={`p-2 relative hover:[&>span]:text-secondary ${
-					location.pathname.startsWith('/dashboard') ? 'bg-secondary text-black [&>span]:text-black' : ''
-				}`}
-				icon={<span className="w-6 h-6 i-dashboard" />}
+			<TooltipButton
+				className={
+					classNameButtonBorderHighlight +
+					`p-2 relative hover:[&>span]:text-secondary ${
+						location.pathname.startsWith('/dashboard') ? 'bg-secondary text-black [&>span]:text-black' : ''
+					}`
+				}
 				data-testid="dashboard-button"
 				tooltip="Dashboard"
 				ref={ref}
 				{...props}
-			/>
+			>
+				<span className="w-6 h-6 i-dashboard" />
+			</TooltipButton>
 			{totalNotifications > 0 && (
 				<span className="-top-2 -right-2 absolute flex justify-center items-center bg-secondary rounded-full w-5 h-5 font-bold text-black text-xs">
 					{totalNotifications > 99 ? '99+' : totalNotifications}
@@ -162,9 +171,13 @@ function WalletButton() {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="primary" tooltip="Wallet" className="relative p-2 hover:[&>svg]:text-secondary" data-testid="wallet-button">
+				<TooltipButton
+					className={classNameButtonBorderHighlight + ' relative p-2 hover:[&>svg]:text-secondary'}
+					tooltip="Wallet"
+					data-testid="wallet-button"
+				>
 					<Wallet className="w-6 h-6" />
-				</Button>
+				</TooltipButton>
 			</PopoverTrigger>
 
 			<PopoverContent className="bg-primary rounded-lg w-[calc(100vw-2rem)] md:w-96" align="end">
@@ -187,7 +200,7 @@ export function BugReportButton({ className }: BugReportButtonProps) {
 
 	return (
 		<>
-			<Button
+			<TooltipButton
 				variant="outline"
 				size="icon"
 				onClick={handleBugReport}
@@ -199,7 +212,7 @@ export function BugReportButton({ className }: BugReportButtonProps) {
 				aria-label="Report a bug"
 			>
 				<span className="hover:bg-black px-2 py-0 w-6 h-6 hover:text-secondary i-bug" />
-			</Button>
+			</TooltipButton>
 			<BugReportModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onReopen={() => setIsModalOpen(true)} />
 		</>
 	)
@@ -358,7 +371,7 @@ export function Header() {
 
 						{/* Profile Button/Avatar, or Log-In Button if not authenticated */}
 						{isAuthenticating ? (
-							<Button variant="primary" className="relative p-2" data-testid="auth-loading">
+							<Button className={classNameButtonBorderHighlight + ' relative p-2'} data-testid="auth-loading">
 								<Loader2 className="w-4 h-4 animate-spin" />
 							</Button>
 						) : isAuthenticated ? (
@@ -373,8 +386,7 @@ export function Header() {
 						{/* Mobile Drop-down Menu */}
 						{isMobile && (
 							<Button
-								variant="primary"
-								className="relative hover:bg-secondary/20 p-2"
+								className={classNameButtonBorderHighlight + ' relative hover:bg-secondary/20 p-2'}
 								onClick={handleMobileMenuClick}
 								data-testid="mobile-menu-button"
 							>

@@ -1,18 +1,18 @@
-import { Button, type ButtonVariant } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { NDKEvent } from '@nostr-dev-kit/ndk'
 import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { usePublishReactionMutation } from '@/publish/reactions'
 import { useEventReactions } from '@/queries/reactions'
 import { useAuth } from '@/lib/stores/auth'
 import { usePublishDeletionMutation } from '@/publish/reactions'
 import { toast } from 'sonner'
-import { ndkActions } from '@/lib/stores/ndk'
+import type { ButtonProps } from '@/components/shared/ui/ButtonProps'
+import { TooltipButton } from '@/components/shared/ui/TooltipButton'
 
-interface ReactionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ReactionButtonProps extends ButtonProps {
 	event: NDKEvent
-	variant?: ButtonVariant
 }
 
 export function ReactionButton({ event, className, variant, ...props }: ReactionButtonProps) {
@@ -104,7 +104,7 @@ export function ReactionButton({ event, className, variant, ...props }: Reaction
 		<>
 			<Popover open={isOpen}>
 				<PopoverTrigger asChild>
-					<Button
+					<TooltipButton
 						variant={variant ?? 'outline'}
 						size="icon"
 						className={'border-2 focus:outline-none ' + classNameButtonGhost + ' ' + className}
@@ -132,29 +132,28 @@ export function ReactionButton({ event, className, variant, ...props }: Reaction
 						disabled={!event.ndk}
 						/** Only show tooltip when not conflicting with popover */
 						tooltip={isAuthenticated ? undefined : 'React'}
-						icon={
-							latestReaction ? (
-								latestReaction.emoji === '❤️' ? (
-									<span className="i-heart-fill w-6 h-6" />
-								) : (
-									<span className="text-2xl">{latestReaction.emoji}</span>
-								)
+					>
+						{latestReaction ? (
+							latestReaction.emoji === '❤️' ? (
+								<span className="w-6 h-6 i-heart-fill" />
 							) : (
-								<span className="i-heart w-6 h-6" />
+								<span className="text-2xl">{latestReaction.emoji}</span>
 							)
-						}
-					/>
+						) : (
+							<span className="w-6 h-6 i-heart" />
+						)}
+					</TooltipButton>
 				</PopoverTrigger>
 				<PopoverContent
 					onMouseEnter={handlePopoverOpen}
 					onMouseLeave={scheduleClose}
 					style={{ width: 'auto' }}
-					className="flex flex-wrap gap-0 p-2 bg-primary/60 border-tertiary-hover/60 rounded-xl"
+					className="flex flex-wrap gap-0 bg-primary/60 p-2 border-tertiary-hover/60 rounded-xl"
 				>
 					{commonEmojis.map((emoji) => (
 						<button
 							key={emoji}
-							className="text-3xl px-2 py-1 border-2 rounded border-transparent hover:border-light-gray/30 active:border-light-gray/40 active:bg-light-gray/20"
+							className="active:bg-light-gray/20 px-2 py-1 border-2 border-transparent hover:border-light-gray/30 active:border-light-gray/40 rounded text-3xl"
 							onClick={() => {
 								handlePublishReaction(emoji)
 							}}

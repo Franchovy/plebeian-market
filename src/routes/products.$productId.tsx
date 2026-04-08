@@ -55,6 +55,7 @@ import SocialInteractions from '@/components/shared/social/SocialInteractions'
 import type { NDKEvent } from '@nostr-dev-kit/ndk'
 import { scrollToElementWithOffset } from '@/lib/utils/ui'
 import { Comments } from '@/components/shared/social/Comments'
+import { classNameButtonBorderHighlight } from '@/components/shared/ui/ButtonExtended'
 
 // Hook to inject dynamic CSS
 function useHeroBackground(imageUrl: string, className: string) {
@@ -377,7 +378,10 @@ function RouteComponent() {
 					<Link to="/products" className="inline-flex">
 						<Button variant="outline">Back to products</Button>
 					</Link>
-					<Button variant="primary" onClick={() => uiActions.openNSFWConfirmation()} className="bg-amber-600 hover:bg-amber-700">
+					<Button
+						className={classNameButtonBorderHighlight + ' bg-amber-600 hover:bg-amber-700'}
+						onClick={() => uiActions.openNSFWConfirmation()}
+					>
 						Enable adult content
 					</Button>
 				</div>
@@ -541,11 +545,9 @@ function RouteComponent() {
 							/>
 
 							{visibility === 'pre-order' ? (
-								<Badge variant="primary" className="bg-blue-500">
-									Pre-order
-								</Badge>
+								<Badge className="bg-blue-500">Pre-order</Badge>
 							) : (
-								<Badge variant="primary">{stock !== undefined ? `${stock} in stock` : 'Out of stock'}</Badge>
+								<Badge>{stock !== undefined ? `${stock} in stock` : 'Out of stock'}</Badge>
 							)}
 
 							{(() => {

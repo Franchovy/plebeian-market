@@ -28,6 +28,7 @@ import { Edit, MapPin, MessageCircle, Minus, Plus, Share2, Timer } from 'lucide-
 import { useState, useEffect, useMemo } from 'react'
 import { toast } from 'sonner'
 import { UserCard } from '../../shared/user/UserCard'
+import { TooltipButton } from '@/components/shared/ui/TooltipButton'
 
 interface ProfilePageProps {
 	profileId: string
@@ -209,17 +210,22 @@ export function ProfilePage({ profileId }: ProfilePageProps) {
 					{!isSmallScreen && (
 						<div className="flex gap-2">
 							{user && <ZapButton event={user} />}
-							<Button variant="focus" size="icon" tooltip="Message" onClick={handleMessageClick}>
+							<TooltipButton variant="focus" size="icon" tooltip="Message" onClick={handleMessageClick}>
 								<MessageCircle className="w-5 h-5" />
-							</Button>
+							</TooltipButton>
 							{pickupLocations.length > 0 && (
-								<Button variant="secondary" size="icon" tooltip="Set Pickup Location" onClick={() => setPickupLocationDialogOpen(true)}>
+								<TooltipButton
+									variant="secondary"
+									size="icon"
+									tooltip="Set Pickup Location"
+									onClick={() => setPickupLocationDialogOpen(true)}
+								>
 									<MapPin className="w-5 h-5" />
-								</Button>
+								</TooltipButton>
 							)}
-							<Button variant="secondary" size="icon" tooltip="Share" onClick={() => setShareDialogOpen(true)}>
+							<TooltipButton variant="secondary" size="icon" tooltip="Share" onClick={() => setShareDialogOpen(true)}>
 								<Share2 className="w-5 h-5" />
-							</Button>
+							</TooltipButton>
 							{/* Edit button for profile owner */}
 							{permissions.canEdit && (
 								<Button variant="secondary" onClick={handleEdit} className="flex items-center gap-2">
