@@ -1,4 +1,4 @@
-# ADR-013: NIP-17 Order Message Transport
+# ADR-0002: NIP-17 Order Message Transport
 
 ## Status
 
@@ -250,7 +250,7 @@ Rejected for reviewability. Crypto/message shape, DM relay resolution, publish w
 Files:
 
 ```text
-docs/adr/ADR-013-nip17-order-message-transport.md
+docs/adr/ADR-0002-nip17-order-message-transport.md
 src/lib/nostr/nip17.ts
 src/lib/orders/orderMessageRumor.ts
 src/lib/__tests__/nip17.test.ts
